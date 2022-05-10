@@ -15,6 +15,10 @@ public class Customer {
         this.id = id;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public String getFirst_name() {
         return first_name;
     }

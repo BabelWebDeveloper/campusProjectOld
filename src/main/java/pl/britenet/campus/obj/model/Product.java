@@ -9,7 +9,6 @@ public class Product {
     private int discount_id;
 
     private int categoryId;
-    private Category category;
 
     public Product(int id) {
         this.id = id;
@@ -31,10 +30,6 @@ public class Product {
         return categoryId;
     }
 
-    public Category getCategory() {
-        return category;
-    }
-
     public double getPrice() {
         return price;
     }
@@ -47,12 +42,8 @@ public class Product {
         this.price = price;
     }
 
-    public void setDiscount_id(int discount_id) {
+    public void setDiscountId(int discount_id) {
         this.discount_id = discount_id;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
     }
 
     public void setCategoryId(int categoryId) {

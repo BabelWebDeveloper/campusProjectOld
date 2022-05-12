@@ -57,4 +57,9 @@ public class Product {
         this.description = description;
     }
 
+    @Override
+    public String toString() {
+        return String.format("ID: %d, name: %s, description: %s, price: %f, category_id: %s", id, name, description, price, categoryId);
+    }
+
 }

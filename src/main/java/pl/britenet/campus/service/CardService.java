@@ -3,51 +3,47 @@ package pl.britenet.campus.service;
 import pl.britenet.campus.obj.model.Card;
 import pl.britenet.campus.obj.model.Card;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class CardService {
 
-    private final List<Card> cards;
+    private final Map<Integer, Card> cards;
 
     public CardService() {
-        this.cards = new ArrayList<>();
+        this.cards = new HashMap<>();
     }
 
     public Optional<Card> retrieve(int id) {
-        return this.cards.stream()
-                .filter( card -> card.getId() == id )
-                .findFirst();
+        return Optional.of(this.cards.get(id));
     }
 
-    public Card create(int id, int customer_id, double total_cost) {
-        Card card = new Card(id);
-        card.setCustomer_id(customer_id);
-        card.setTotal_cost(total_cost);
-        this.cards.add(card);
+    public Card create(Card card) {
+        this.cards.put(card.getId(), card);
         return card;
     }
 
     public void remove(int id) {
-        this.cards.removeIf(category -> category.getId() == id );
+        this.cards.remove(id);
     }
 
-    public Card update(int id, int customer_id, double total_cost) {
-        Card card = this.retrieve(id).orElseThrow();
-        card.setCustomer_id(customer_id);
-        card.setTotal_cost(total_cost);
-        return card;
+    public Card update(Card card) {
+        if (this.cards.containsKey(card.getId())){
+            this.cards.replace(card.getId(), card);
+            return card;
+        }
+        else {
+            throw new IllegalStateException("No such element under the given ID");
+        }
     }
 
     public void display(int id){
         Card card = this.retrieve(id).orElseThrow();
-        System.out.println("User id of this card: " + card.getCustomer_id());
+        System.out.println(card);
     }
 
-    public void display(){
-        for (Card card : this.cards){
-            System.out.println("User id of this card: " + card.getCustomer_id());
-        }
-    }
+//    public void display(){
+//        for (Card card : this.cards){
+//            System.out.println("User id of this card: " + card.getCustomer_id());
+//        }
+//    }
 }

@@ -74,4 +74,9 @@ public class Customer {
     public void setZip_code(int zip_code) {
         this.zip_code = zip_code;
     }
+
+    @Override
+    public String toString() {
+        return String.format("ID: %d, first name: %s, last name: %s, phone %s, email: %s. street %s, city %s, zip code: %d", id, first_name, last_name, phone, email, street, city, zip_code);
+    }
 }

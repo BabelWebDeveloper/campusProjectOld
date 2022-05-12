@@ -1,63 +1,48 @@
 package pl.britenet.campus.service;
 
-import pl.britenet.campus.obj.model.Card;
 import pl.britenet.campus.obj.model.Customer;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class CustomerService {
 
-    private final List<Customer> customers;
+    private final Map<Integer, Customer> customers;
 
     public CustomerService() {
-        this.customers = new ArrayList<>();
+        this.customers = new HashMap<>();
     }
 
     public Optional<Customer> retrieve(int id) {
-        return this.customers.stream()
-                .filter( customer -> customer.getId() == id )
-                .findFirst();
+        return Optional.of(this.customers.get(id));
     }
 
-    public Customer create(int id, String first_name, String last_name, String phone, String email, String street, String city, int zip_code) {
-        Customer customer = new Customer(id);
-        customer.setFirst_name(first_name);
-        customer.setLast_name(last_name);
-        customer.setPhone(phone);
-        customer.setEmail(email);
-        customer.setStreet(street);
-        customer.setCity(city);
-        customer.setZip_code(zip_code);
-        this.customers.add(customer);
+    public Customer create(Customer customer) {
+        this.customers.put(customer.getId(), customer);
         return customer;
     }
 
     public void remove(int id) {
-        this.customers.removeIf(category -> category.getId() == id );
+        this.customers.remove(id);
     }
 
-    public Customer update(int id, String first_name, String last_name, String phone, String email, String street, String city, int zip_code) {
-        Customer customer = this.retrieve(id).orElseThrow();
-        customer.setFirst_name(first_name);
-        customer.setLast_name(last_name);
-        customer.setPhone(phone);
-        customer.setEmail(email);
-        customer.setStreet(street);
-        customer.setCity(city);
-        customer.setZip_code(zip_code);
-        return customer;
+    public Customer update(Customer customer) {
+        if (this.customers.containsKey(customer.getId())) {
+            this.customers.replace(customer.getId(), customer);
+            return customer;
+        }
+        else {
+            throw new IllegalStateException("No such element under the given ID");
+        }
     }
 
     public void display(int id){
         Customer customer = this.retrieve(id).orElseThrow();
-        System.out.println("Name: " + customer.getFirst_name() + " " + customer.getLast_name() + " " + customer.getEmail());
+        System.out.println(customer);
     }
 
-    public void display(){
-        for (Customer customer : this.customers){
-            System.out.println("Name: " + customer.getFirst_name() + " " + customer.getLast_name() + " " + customer.getEmail());
-        }
-    }
+//    public void display(){
+//        for (Customer customer : this.customers){
+//            System.out.println(customer);
+//        }
+//    }
 }

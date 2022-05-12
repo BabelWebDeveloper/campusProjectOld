@@ -23,7 +23,6 @@ public class DeleteProductCommand extends Command {
         int id = scanner.nextInt();
 
         productService.remove(id);
-
-        System.out.println("Produkt został zaktualizowany.");
+        System.out.println("Produkt został usunięty.");
     }
 }

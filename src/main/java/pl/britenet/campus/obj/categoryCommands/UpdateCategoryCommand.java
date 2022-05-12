@@ -1,5 +1,6 @@
 package pl.britenet.campus.obj.categoryCommands;
 
+import pl.britenet.campus.builder.CategoryBuilder;
 import pl.britenet.campus.obj.Command;
 import pl.britenet.campus.obj.model.Category;
 import pl.britenet.campus.obj.model.Product;
@@ -28,10 +29,12 @@ public class UpdateCategoryCommand extends Command {
         System.out.println("Wprowadź nową nazwę kategorii:");
         String name = scanner.nextLine();
 
-        categoryService.update(id,name);
-        Category category = categoryService.retrieve(id).orElseThrow();
+        Category category = new CategoryBuilder(id)
+                .setName(name)
+                .getCategory();
+        categoryService.update(category);
 
-        System.out.println("Kategoria została zaktualizowana.");
-        System.out.println(category.getName());
+        category = categoryService.retrieve(id).orElseThrow();
+        System.out.println(category);
     }
 }

@@ -1,5 +1,6 @@
 package pl.britenet.campus.obj.productCommands;
 
+import pl.britenet.campus.builder.ProductBuilder;
 import pl.britenet.campus.obj.Command;
 import pl.britenet.campus.obj.model.Product;
 import pl.britenet.campus.service.ProductService;
@@ -40,10 +41,17 @@ public class CreateProductCommand extends Command {
         System.out.println("Wprowadź poziom zniżki:");
         int discount_id = scanner.nextInt();
 
-        productService.create(id, name, description, price, discount_id, category_id);
-        Product product = productService.retrieve(id).orElseThrow();
+        Product product = new ProductBuilder(id)
+                .setName(name)
+                .setDescription(description)
+                .setPrice(price)
+                .setCategoryId(category_id)
+                .setDiscount(discount_id)
+                .getProduct();
+
+        productService.create(product);
 
         System.out.println("Produkt został utworzony i dodany do listy produktów.");
-        System.out.println(product.getName() + " - " + product.getDescription() + " - " + product.getPrice());
+        System.out.println(product);
     }
 }

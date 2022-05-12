@@ -1,5 +1,6 @@
 package pl.britenet.campus.obj.customerCommands;
 
+import pl.britenet.campus.builder.CustomerBuilder;
 import pl.britenet.campus.obj.Command;
 import pl.britenet.campus.obj.model.Customer;
 import pl.britenet.campus.service.CardService;
@@ -45,9 +46,20 @@ public class UpdateCustomerCommand extends Command {
         System.out.println("Wprowadź kod pocztowy:");
         int zip_code = scanner.nextInt();
 
-        customerService.update(id,first_name,last_name,phone,email,street,city,zip_code);
-        Customer customer = customerService.retrieve(id).orElseThrow();
+        Customer customer = new CustomerBuilder(id)
+                .setFirstName(first_name)
+                .setLastName(last_name)
+                .setPhone(phone)
+                .setEmail(email)
+                .setStreet(street)
+                .setCity(city)
+                .setZipCode(zip_code)
+                .getCustomer();
 
-        System.out.println("Klient został zaktualizwoany.");
+        customerService.update(customer);
+
+        customer = customerService.retrieve(id).orElseThrow();
+
+        System.out.println(customer);
     }
 }

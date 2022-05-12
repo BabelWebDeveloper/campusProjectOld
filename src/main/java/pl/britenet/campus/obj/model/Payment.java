@@ -9,6 +9,10 @@ public class Payment {
         this.id = id;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public int getCustomer_id() {
         return customer_id;
     }
@@ -23,5 +27,10 @@ public class Payment {
 
     public void setDate(int date) {
         this.date = date;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("ID: %d, customer-id: %d, date: %d", id, customer_id, date);
     }
 }

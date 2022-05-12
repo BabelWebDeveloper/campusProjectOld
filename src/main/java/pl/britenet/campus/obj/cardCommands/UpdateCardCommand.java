@@ -1,6 +1,8 @@
 package pl.britenet.campus.obj.cardCommands;
 
+import pl.britenet.campus.builder.CardBuilder;
 import pl.britenet.campus.obj.Command;
+import pl.britenet.campus.obj.model.Card;
 import pl.britenet.campus.service.CardService;
 import pl.britenet.campus.service.CategoryService;
 
@@ -31,7 +33,30 @@ public class UpdateCardCommand extends Command {
         double total_cost = scanner.nextDouble();
         scanner.nextLine();
 
-        cardService.update(id,customer_id,total_cost);
-        System.out.println("Karta została zaktualizowana.");
+        System.out.println("Wprowadź isOrdered: y/n");
+        String isOrderedString = scanner.nextLine();
+        boolean isOrdered;
+        if (isOrderedString.equals("y")){
+            isOrdered = true;
+        } else if (isOrderedString.equals("n")){
+            isOrdered = false;
+        } else {
+            System.out.println("Wrong command! isOrderd set as false");
+            isOrdered = false;
+        }
+
+        System.out.println("Wprowadź payment_id:");
+        int payment_id = scanner.nextInt();
+
+        Card card = new CardBuilder(id)
+                .setCustomerId(customer_id)
+                .setPaymentId(payment_id)
+                .setTotalCost(total_cost)
+                .setOrdered(isOrdered)
+                .getCard();
+
+        cardService.update(card);
+
+        System.out.println(card);
     }
 }

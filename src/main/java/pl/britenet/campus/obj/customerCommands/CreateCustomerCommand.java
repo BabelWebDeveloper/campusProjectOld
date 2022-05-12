@@ -1,8 +1,11 @@
 package pl.britenet.campus.obj.customerCommands;
 
+import pl.britenet.campus.builder.CustomerBuilder;
+import pl.britenet.campus.builder.ProductBuilder;
 import pl.britenet.campus.obj.Command;
 import pl.britenet.campus.obj.model.Card;
 import pl.britenet.campus.obj.model.Customer;
+import pl.britenet.campus.obj.model.Product;
 import pl.britenet.campus.service.CardService;
 import pl.britenet.campus.service.CustomerService;
 
@@ -46,9 +49,20 @@ public class CreateCustomerCommand extends Command {
         System.out.println("Wprowadź kod pocztowy:");
         int zip_code = scanner.nextInt();
 
-        customerService.create(id, first_name, last_name, phone, email, street, city ,zip_code);
-        Customer customer = customerService.retrieve(id).orElseThrow();
+        Customer customer = new CustomerBuilder(id)
+                .setFirstName(first_name)
+                .setLastName(last_name)
+                .setPhone(phone)
+                .setEmail(email)
+                .setStreet(street)
+                .setCity(city)
+                .setZipCode(zip_code)
+                .getCustomer();
 
-        System.out.println("Klient został stworzony.");
+        customerService.create(customer);
+
+        customer = customerService.retrieve(id).orElseThrow();
+
+        System.out.println(customer);
     }
 }

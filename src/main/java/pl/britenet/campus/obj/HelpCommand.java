@@ -12,11 +12,10 @@ public class HelpCommand extends Command {
         System.out.println("Lista dostępnych komend:\n" +
                 "help -> Menu\n" +
                 "\n" +
-                "Komendy produktu:\n" +
-                "create-product -> Stwórz nowy produkt\n" +
-                "retrieve-product -> Wybierz produkt i zobacz go\n" +
-                "update-product -> Zaktualizuj produkt\n" +
-                "delete-product -> Usuń produkt\n");
+                "create- -> Stwórz nowy\n" +
+                "retrieve- -> Wybierz i wyświetl \n" +
+                "update- -> Zaktualizuj\n" +
+                "delete- -> Usuń\n");
         System.out.println("exit -> exit from app");
         System.out.println("====================");
     }

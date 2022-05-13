@@ -43,7 +43,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        DatabaseService databaseService = new DatabaseService();
+//        DatabaseService databaseService = new DatabaseService();
         ProductService productService = new ProductService();
         CategoryService categoryService = new CategoryService();
         CardService cardService = new CardService();
@@ -94,8 +94,6 @@ public class Main {
         commandService.registerCommand(new RetrieveDiscountCommand(discountService));
         commandService.registerCommand(new UpdateDiscountCommand(discountService));
         commandService.registerCommand(new DeleteDiscountCommand(discountService));
-
-        databaseService.performDML("");
 
         System.out.println("Witamy w sklepie internetowym!");
         commandService.getCommand("help").get().perform();

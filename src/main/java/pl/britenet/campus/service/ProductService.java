@@ -6,7 +6,6 @@ import java.util.*;
 
 public class ProductService {
 
-//    private final List<Product> products;
     private final Map<Integer, Product> products;
 
     public ProductService() {

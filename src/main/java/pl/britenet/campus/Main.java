@@ -20,11 +20,6 @@ import pl.britenet.campus.obj.customerCommands.DeleteCustomerCommand;
 import pl.britenet.campus.obj.customerCommands.RetrieveCustomerCommand;
 import pl.britenet.campus.obj.customerCommands.UpdateCustomerCommand;
 
-//import pl.britenet.campus.obj.orderCommands.CreateOrderCommand;
-//import pl.britenet.campus.obj.orderCommands.DeleteOrderCommand;
-//import pl.britenet.campus.obj.orderCommands.RetrieveOrderCommand;
-//import pl.britenet.campus.obj.orderCommands.UpdateOrderCommand;
-
 import pl.britenet.campus.obj.discountCommands.CreateDiscountCommand;
 import pl.britenet.campus.obj.discountCommands.DeleteDiscountCommand;
 import pl.britenet.campus.obj.discountCommands.RetrieveDiscountCommand;
@@ -38,6 +33,7 @@ import pl.britenet.campus.obj.productCommands.DeleteProductCommand;
 import pl.britenet.campus.obj.productCommands.RetrieveProductCommand;
 import pl.britenet.campus.obj.productCommands.UpdateProductCommand;
 import pl.britenet.campus.service.*;
+import pl.britenet.campus.service.database.DatabaseService;
 
 import java.util.Optional;
 import java.util.Scanner;
@@ -47,7 +43,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-//        ==================================================
+        DatabaseService databaseService = new DatabaseService();
         ProductService productService = new ProductService();
         CategoryService categoryService = new CategoryService();
         CardService cardService = new CardService();
@@ -98,6 +94,8 @@ public class Main {
         commandService.registerCommand(new RetrieveDiscountCommand(discountService));
         commandService.registerCommand(new UpdateDiscountCommand(discountService));
         commandService.registerCommand(new DeleteDiscountCommand(discountService));
+
+        databaseService.performDML("");
 
         System.out.println("Witamy w sklepie internetowym!");
         commandService.getCommand("help").get().perform();

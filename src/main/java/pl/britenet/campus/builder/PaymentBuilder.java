@@ -14,7 +14,7 @@ public class PaymentBuilder {
         return this;
     }
 
-    public PaymentBuilder setDate(int date) {
+    public PaymentBuilder setDate(String date) {
         this.payment.setDate(date);
         return this;
     }
@@ -22,4 +22,5 @@ public class PaymentBuilder {
     public Payment getPayment() {
         return this.payment;
     }
+
 }

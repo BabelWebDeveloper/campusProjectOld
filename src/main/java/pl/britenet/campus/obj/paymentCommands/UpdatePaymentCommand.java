@@ -36,8 +36,6 @@ public class UpdatePaymentCommand extends Command {
 
         paymentService.update(payment);
 
-        payment = paymentService.retrieve(id).orElseThrow();
-
         System.out.println(payment);
     }
 }

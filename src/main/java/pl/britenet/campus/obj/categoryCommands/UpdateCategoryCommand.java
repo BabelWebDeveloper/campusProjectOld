@@ -33,8 +33,7 @@ public class UpdateCategoryCommand extends Command {
                 .setName(name)
                 .getCategory();
         categoryService.update(category);
-
-        category = categoryService.retrieve(id).orElseThrow();
+        System.out.println("Kategoria została zaktualizowana");
         System.out.println(category);
     }
 }

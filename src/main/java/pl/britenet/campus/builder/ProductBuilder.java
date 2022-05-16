@@ -25,12 +25,12 @@ public class ProductBuilder {
     }
 
     public ProductBuilder setDiscount(int discount_id) {
-        this.product.setDiscountId(discount_id);
+        this.product.setDiscount_id(discount_id);
         return this;
     }
 
-    public ProductBuilder setCategoryId(int categoryId) {
-        this.product.setCategoryId(categoryId);
+    public ProductBuilder setCategoryId(int category_id) {
+        this.product.setCategory_id(category_id);
         return this;
     }
 

@@ -34,7 +34,6 @@ public class CreateCategoryCommand extends Command {
                 .getCategory();
         categoryService.create(category);
 
-        category = categoryService.retrieve(id).orElseThrow();
         System.out.println(category);
     }
 }

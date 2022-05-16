@@ -35,6 +35,7 @@ import pl.britenet.campus.obj.productCommands.UpdateProductCommand;
 import pl.britenet.campus.service.*;
 import pl.britenet.campus.service.database.DatabaseService;
 
+import java.util.Locale;
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -42,15 +43,15 @@ public class Main {
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-
-//        DatabaseService databaseService = new DatabaseService();
-        ProductService productService = new ProductService();
-        CategoryService categoryService = new CategoryService();
-        CardService cardService = new CardService();
-        CardProductService cardProductService = new CardProductService();
-        CustomerService customerService = new CustomerService();
-        PaymentService paymentService = new PaymentService();
-        DiscountService discountService = new DiscountService();
+        Locale.setDefault(Locale.US);
+        DatabaseService databaseService = new DatabaseService();
+        ProductService productService = new ProductService(databaseService);
+        CategoryService categoryService = new CategoryService(databaseService);
+        CardService cardService = new CardService(databaseService);
+        CardProductService cardProductService = new CardProductService(databaseService);
+        CustomerService customerService = new CustomerService(databaseService);
+        PaymentService paymentService = new PaymentService(databaseService);
+        DiscountService discountService = new DiscountService(databaseService);
 
         CommandService commandService = new CommandService();
 

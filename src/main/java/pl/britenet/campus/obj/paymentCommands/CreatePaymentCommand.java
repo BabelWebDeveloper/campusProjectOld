@@ -38,8 +38,6 @@ public class CreatePaymentCommand extends Command {
 
         paymentService.create(payment);
 
-        payment = paymentService.retrieve(id).orElseThrow();
-
         System.out.println(payment);
     }
 }

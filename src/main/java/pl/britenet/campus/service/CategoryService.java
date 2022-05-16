@@ -1,39 +1,60 @@
 package pl.britenet.campus.service;
 
+import pl.britenet.campus.builder.CategoryBuilder;
+import pl.britenet.campus.builder.ProductBuilder;
 import pl.britenet.campus.obj.model.Category;
 import pl.britenet.campus.obj.model.Product;
+import pl.britenet.campus.service.database.DatabaseService;
 
 import java.util.*;
 
 public class CategoryService {
 
-    private final Map<Integer, Category> categories;
+    private final DatabaseService databaseService;
 
-    public CategoryService() {
-        this.categories = new HashMap<>();
+    public CategoryService(DatabaseService databaseService) {
+        this.databaseService = databaseService;
     }
 
     public Optional<Category> retrieve(int id) {
-        return Optional.of(this.categories.get(id));
+        String sqlQuery = String.format("SELECT * FROM category WHERE id=%d", id);
+        Category category = this.databaseService.performQuery(sqlQuery, resultSet -> {
+
+            if (resultSet.next()) {
+                String name = resultSet.getString("name");
+
+                return new CategoryBuilder(id)
+                        .setName(name)
+                        .getCategory();
+
+            }
+            return null;
+
+        });
+
+        return Optional.of(category);
     }
 
     public Category create(Category category) {
-        this.categories.put(category.getId(), category);
+        String dml = String.format("INSERT INTO category (name) VALUES ('%s')",
+                category.getName());
+
+        this.databaseService.performDML(dml);
         return category;
     }
 
     public void remove(int id) {
-        this.categories.remove(id);
+        String dml = String.format("DELETE FROM category WHERE id=%d", id);
+        this.databaseService.performDML(dml);
     }
 
     public Category update(Category category) {
-        if (this.categories.containsKey(category.getId())){
-            this.categories.replace(category.getId(), category);
-            return category;
-        }
-        else {
-            throw new IllegalStateException("No such element under the given ID");
-        }
+        String dml = String.format("UPDATE category SET name='%s' WHERE id=%d",
+                category.getName(),
+                category.getId());
+
+        this.databaseService.performDML(dml);
+        return category;
     }
 
     public void display(int id){

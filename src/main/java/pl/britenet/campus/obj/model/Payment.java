@@ -29,6 +29,8 @@ public class Payment {
         this.date = date;
     }
 
+
+
     @Override
     public String toString() {
         return String.format("ID: %d, customer-id: %d, date: %s", id, customer_id, date);

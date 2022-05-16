@@ -61,8 +61,6 @@ public class CreateCustomerCommand extends Command {
 
         customerService.create(customer);
 
-        customer = customerService.retrieve(id).orElseThrow();
-
         System.out.println(customer);
     }
 }

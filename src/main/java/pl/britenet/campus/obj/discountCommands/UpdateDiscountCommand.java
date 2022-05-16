@@ -20,7 +20,7 @@ public class UpdateDiscountCommand extends Command {
     public void perform() {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Wprowadź ID promocji, którą chcesz dodać:");
+        System.out.println("Wprowadź ID promocji, którą chcesz zaktualizować:");
         int id = scanner.nextInt();
         scanner.nextLine();
 
@@ -28,7 +28,7 @@ public class UpdateDiscountCommand extends Command {
         int discount_percent = scanner.nextInt();
         scanner.nextLine();
 
-        System.out.println("Wprowadź date");
+        System.out.println("Wprowadź opis");
         String discount_description = scanner.nextLine();
 
         Discount discount = new DiscountBuilder(id)
@@ -38,8 +38,7 @@ public class UpdateDiscountCommand extends Command {
 
         discountService.update(discount);
 
-        discount = discountService.retrieve(id).orElseThrow();
-
+        System.out.println("Promocja została zaktualizowana.");
         System.out.println(discount);
     }
 }

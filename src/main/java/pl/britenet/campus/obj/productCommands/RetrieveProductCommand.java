@@ -21,6 +21,12 @@ public class RetrieveProductCommand extends Command {
         System.out.println("Wprowadź ID produktu, który chcesz wyświetlić.");
         int id = scanner.nextInt();
 
-        productService.display(id);
+//        try {
+            productService.display(id);
+//        }
+//        catch (NullPointerException e) {
+//            System.out.println(e.getMessage());
+//        }
+
     }
 }

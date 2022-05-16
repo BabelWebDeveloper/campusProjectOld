@@ -42,7 +42,7 @@ public class CreateDiscountCommand extends Command {
 
         discountService.create(discount);
 
-        discount = discountService.retrieve(id).orElseThrow();
+//        discount = discountService.retrieve(id).orElseThrow();
 
         System.out.println(discount);
     }

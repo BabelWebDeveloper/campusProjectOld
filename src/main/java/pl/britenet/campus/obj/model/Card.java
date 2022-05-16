@@ -45,12 +45,14 @@ public class Card {
         return isOrdered;
     }
 
+
+
     public void setOrdered(boolean ordered) {
         isOrdered = ordered;
     }
 
     @Override
     public String toString() {
-        return String.format("ID: %d, customer_id: %d, total_cost: %f", id, customer_id, total_cost);
+        return String.format("ID: %d, customer_id: %d, total_cost: %f, idOrdered: %b", id, customer_id, total_cost, isOrdered);
     }
 }

@@ -57,9 +57,7 @@ public class UpdateCustomerCommand extends Command {
                 .getCustomer();
 
         customerService.update(customer);
-
-        customer = customerService.retrieve(id).orElseThrow();
-
+        System.out.println("Klient został zaktualizowany");
         System.out.println(customer);
     }
 }

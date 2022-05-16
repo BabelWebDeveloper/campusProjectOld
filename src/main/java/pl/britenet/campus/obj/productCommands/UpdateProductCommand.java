@@ -22,7 +22,12 @@ public class UpdateProductCommand extends Command {
 
         System.out.println("Wprowadź ID produktu, który chcesz zaktualizować:");
         int id = scanner.nextInt();
-        scanner.nextLine();
+
+        if (productService.retrieve(id).isPresent()){
+            scanner.nextLine();
+        } else {
+            System.out.println("Nie ma takiego produktu.");
+        }
 
         System.out.println("Wprowadź nazwę produktu:");
         String name = scanner.nextLine();
@@ -48,6 +53,7 @@ public class UpdateProductCommand extends Command {
                 .setCategoryId(category_id)
                 .setDiscount(discount_id)
                 .getProduct();
+
         productService.update(product);
 
         System.out.println("Produkt został zaktualizowany.");

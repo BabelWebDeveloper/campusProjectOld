@@ -1,38 +1,63 @@
 package pl.britenet.campus.service;
 
+import pl.britenet.campus.builder.DiscountBuilder;
+import pl.britenet.campus.builder.ProductBuilder;
 import pl.britenet.campus.obj.model.Discount;
+import pl.britenet.campus.obj.model.Product;
+import pl.britenet.campus.service.database.DatabaseService;
 
 import java.util.*;
 
 public class DiscountService {
 
-    private final Map<Integer, Discount> discounts;
+    private final DatabaseService databaseService;
 
-    public DiscountService() {
-        this.discounts = new HashMap<>();
+    public DiscountService(DatabaseService databaseService) {
+        this.databaseService = databaseService;
     }
 
     public Optional<Discount> retrieve(int id) {
-        return Optional.of(this.discounts.get(id));
+        String sqlQuery = String.format("SELECT * FROM discount WHERE id=%d", id);
+        Discount discount = this.databaseService.performQuery(sqlQuery, resultSet -> {
+
+            if (resultSet.next()) {
+                int discount_percent = resultSet.getInt("discount_percent");
+                String discount_description	 = resultSet.getString("discount_description");
+
+                return new DiscountBuilder(id)
+                        .setDiscountPercent(discount_percent)
+                        .setDescription(discount_description)
+                        .getDiscount();
+            }
+            return null;
+
+        });
+
+        return Optional.of(discount);
     }
 
     public Discount create(Discount discount) {
-        this.discounts.put(discount.getId(), discount);
+        String dml = String.format("INSERT INTO discount (discount_percent, discount_description) VALUES (%d, '%s')",
+                discount.getDiscount_percent(),
+                discount.getDiscount_description());
+
+        this.databaseService.performDML(dml);
         return discount;
     }
 
     public void remove(int id) {
-        this.discounts.remove(id);
+        String dml = String.format("DELETE FROM discount WHERE id=%d", id);
+        this.databaseService.performDML(dml);
     }
 
     public Discount update(Discount discount) {
-        if (this.discounts.containsKey(discount.getId())) {
-            this.discounts.replace(discount.getId(), discount);
-            return discount;
-        }
-        else {
-            throw new IllegalStateException("No such element under the given ID");
-        }
+        String dml = String.format("UPDATE discount SET discount_percent=%d, discount_description='%s' WHERE id=%d",
+                discount.getDiscount_percent(),
+                discount.getDiscount_description(),
+                discount.getId());
+
+        this.databaseService.performDML(dml);
+        return discount;
     }
 
     public void display(int id){

@@ -1,7 +1,11 @@
 package pl.britenet.campus.service;
 
 import pl.britenet.campus.builder.CartProductBuilder;
+import pl.britenet.campus.builder.CategoryBuilder;
+import pl.britenet.campus.builder.ProductBuilder;
 import pl.britenet.campus.obj.model.CartProduct;
+import pl.britenet.campus.obj.model.Category;
+import pl.britenet.campus.obj.model.Product;
 import pl.britenet.campus.service.database.DatabaseService;
 
 import java.util.*;
@@ -15,7 +19,11 @@ public class CartProductService {
     }
 
     public Optional<CartProduct> retrieve(int id) {
-        String sqlQuery = String.format("SELECT * FROM cartproduct WHERE id=%d", id);
+        String sqlQuery = String.format("SELECT p.name, c.quantity, ct.name AS \"nazwaKategorii\", ct.id, c.cartId, c.productId\n" +
+                "FROM product p\n" +
+                "INNER JOIN cartproduct c ON c.productId = p.id\n" +
+                "INNER JOIN category ct ON ct.id = p.categoryId\n" +
+                "WHERE c.id = %d", id);
 
         try {
             CartProduct cartProduct = this.databaseService.performQuery(sqlQuery, resultSet -> {
@@ -25,10 +33,27 @@ public class CartProductService {
                     int product_id = resultSet.getInt("productId");
                     int quantity = resultSet.getInt("quantity");
 
+                    int category_id = resultSet.getInt("ct.id");
+                    String categoryName = resultSet.getString("nazwaKategorii");
+
+                    String productName = resultSet.getString("p.name");
+
+                    Category category = new CategoryBuilder(category_id)
+                            .setName(categoryName)
+                            .getCategory();
+
+                    Product product = new ProductBuilder(product_id)
+                            .setName(productName)
+                            .setCategoryId(category_id)
+                            .setCategory(category)
+                            .getProduct();
+
                     return new CartProductBuilder(id)
                             .setCardId(card_id)
                             .setProductId(product_id)
                             .setQuantity(quantity)
+                            .setCategory(category)
+                            .setProduct(product)
                             .getCardProduct();
                 }
                 return null;

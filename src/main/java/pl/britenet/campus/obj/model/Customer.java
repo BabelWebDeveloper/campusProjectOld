@@ -8,6 +8,11 @@ public class Customer {
     private String email;
     private String address;
 
+    private Cart cart;
+    private CartProduct cartProduct;
+    private Product product;
+    private Category category;
+
     public Customer(int id) {
         this.id = id;
     }
@@ -48,8 +53,40 @@ public class Customer {
         this.address = address;
     }
 
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
+
+    public CartProduct getCartProduct() {
+        return cartProduct;
+    }
+
+    public void setCartProduct(CartProduct cartProduct) {
+        this.cartProduct = cartProduct;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
     @Override
     public String toString() {
-        return String.format("first name: %s, last name: %s, email: %s. address: %s", first_name, last_name, email, address);
+        return String.format("first name: %s, last name: %s, nazwa produktu: %s ilość: %d, nazwa kategorii: %s", first_name, last_name, product.getName(), cartProduct.getQuantity(), category.getName());
     }
 }

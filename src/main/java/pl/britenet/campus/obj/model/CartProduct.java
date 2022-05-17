@@ -7,6 +7,9 @@ public class CartProduct {
 
     private int quantity;
 
+    private Category category;
+    private Product product;
+
     public CartProduct(int id) {
         this.id = id;
     }
@@ -39,8 +42,33 @@ public class CartProduct {
         this.quantity = quantity;
     }
 
+    public int getCartId() {
+        return cartId;
+    }
+
+    public void setCartId(int cartId) {
+        this.cartId = cartId;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
     @Override
     public String toString() {
-        return String.format("card_id: %s, product_id: %s , quantity: %s", cartId, productId, quantity);
+//        return String.format("card_id: %s, product_id: %s , quantity: %s", cartId, productId, quantity);
+        return String.format("Nazwa produktu: %s, Ilość: %s, Nazwa kategorii: %s", product.getName(), quantity, category.getName());
     }
 }

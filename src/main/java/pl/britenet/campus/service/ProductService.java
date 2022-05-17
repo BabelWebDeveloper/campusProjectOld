@@ -1,6 +1,8 @@
 package pl.britenet.campus.service;
 
+import pl.britenet.campus.builder.CategoryBuilder;
 import pl.britenet.campus.builder.ProductBuilder;
+import pl.britenet.campus.obj.model.Category;
 import pl.britenet.campus.obj.model.Product;
 import pl.britenet.campus.service.database.DatabaseService;
 
@@ -25,6 +27,11 @@ public class ProductService {
                     double price = resultSet.getDouble("price");
                     int discount_id = resultSet.getInt("discountId");
                     int category_id = resultSet.getInt("categoryId");
+                    String categoryName = resultSet.getString("categoryName");
+
+                    Category category = new CategoryBuilder(category_id)
+                            .setName(categoryName)
+                            .getCategory();
 
                     return new ProductBuilder(id)
                             .setName(name)
@@ -32,6 +39,7 @@ public class ProductService {
                             .setPrice(price)
                             .setDiscount(discount_id)
                             .setCategoryId(category_id)
+                            .setCategory(category)
                             .getProduct();
                 }
                 return null;

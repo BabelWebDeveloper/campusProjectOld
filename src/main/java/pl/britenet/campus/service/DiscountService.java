@@ -1,7 +1,11 @@
 package pl.britenet.campus.service;
 
+import pl.britenet.campus.builder.CategoryBuilder;
 import pl.britenet.campus.builder.DiscountBuilder;
+import pl.britenet.campus.builder.ProductBuilder;
+import pl.britenet.campus.obj.model.Category;
 import pl.britenet.campus.obj.model.Discount;
+import pl.britenet.campus.obj.model.Product;
 import pl.britenet.campus.service.database.DatabaseService;
 
 import java.util.*;
@@ -15,18 +19,40 @@ public class DiscountService {
     }
 
     public Optional<Discount> retrieve(int id) {
-        String sqlQuery = String.format("SELECT * FROM discount WHERE id=%d", id);
+        String sqlQuery = String.format("SELECT p.name AS \"produkt\", d.description AS \"promocja\", c.name AS \"nazwaKategorii\", c.id, p.id, d.percent\n" +
+                "FROM product p\n" +
+                "RIGHT JOIN discount d\n" +
+                "ON p.discountId = d.id\n" +
+                "INNER JOIN category c\n" +
+                "ON c.id = p.categoryId\n" +
+                "WHERE d.id =%d", id);
 
         try {
             Discount discount = this.databaseService.performQuery(sqlQuery, resultSet -> {
 
                 if (resultSet.next()) {
                     int discount_percent = resultSet.getInt("percent");
-                    String discount_description	 = resultSet.getString("description");
+                    String discount_description	 = resultSet.getString("promocja");
+
+                    String categoryName = resultSet.getString("nazwaKategorii");
+                    String productName = resultSet.getString("produkt");
+                    int category_id = resultSet.getInt("c.id");
+                    int product_id = resultSet.getInt("p.id");
+
+                    Category category = new CategoryBuilder(category_id)
+                            .setName(categoryName)
+                            .getCategory();
+
+                    Product product = new ProductBuilder(product_id)
+                            .setName(productName)
+                            .setCategoryId(category_id)
+                            .getProduct();
 
                     return new DiscountBuilder(id)
                             .setDiscountPercent(discount_percent)
                             .setDescription(discount_description)
+                            .setProduct(product)
+                            .setCategory(category)
                             .getDiscount();
                 }
                 return null;

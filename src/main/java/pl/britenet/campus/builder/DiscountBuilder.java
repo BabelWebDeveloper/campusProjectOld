@@ -1,6 +1,8 @@
 package pl.britenet.campus.builder;
 
+import pl.britenet.campus.obj.model.Category;
 import pl.britenet.campus.obj.model.Discount;
+import pl.britenet.campus.obj.model.Product;
 
 public class DiscountBuilder {
     private final Discount discount;
@@ -16,6 +18,16 @@ public class DiscountBuilder {
 
     public DiscountBuilder setDescription(String description) {
         this.discount.setDescription(description);
+        return this;
+    }
+
+    public DiscountBuilder setCategory (Category category) {
+        this.discount.setCategory(category);
+        return this;
+    }
+
+    public DiscountBuilder setProduct (Product product) {
+        this.discount.setProduct(product);
         return this;
     }
 

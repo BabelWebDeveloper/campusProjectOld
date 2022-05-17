@@ -1,6 +1,8 @@
 package pl.britenet.campus.builder;
 
 import pl.britenet.campus.obj.model.CartProduct;
+import pl.britenet.campus.obj.model.Category;
+import pl.britenet.campus.obj.model.Product;
 
 public class CartProductBuilder {
     private final CartProduct cartProduct;
@@ -21,6 +23,16 @@ public class CartProductBuilder {
 
     public CartProductBuilder setQuantity(int quantity) {
         this.cartProduct.setQuantity(quantity);
+        return this;
+    }
+
+    public CartProductBuilder setCategory (Category category) {
+        this.cartProduct.setCategory(category);
+        return this;
+    }
+
+    public CartProductBuilder setProduct (Product product) {
+        this.cartProduct.setProduct(product);
         return this;
     }
 

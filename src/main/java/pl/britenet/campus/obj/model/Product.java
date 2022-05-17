@@ -6,9 +6,9 @@ public class Product {
     private String name;
     private String description;
     private double price;
-    private int discount_id;
+    private int discountId;
 
-    private int category_id;
+    private int categoryId;
 
     public Product(int id) {
         this.id = id;
@@ -43,25 +43,25 @@ public class Product {
         this.price = price;
     }
 
-    public int getDiscount_id() {
-        return discount_id;
+    public int getDiscountId() {
+        return discountId;
     }
 
-    public void setDiscount_id(int discount_id) {
-        this.discount_id = discount_id;
+    public void setDiscountId(int discountId) {
+        this.discountId = discountId;
     }
 
-    public int getCategory_id() {
-        return category_id;
+    public int getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategory_id(int category_id) {
-        this.category_id = category_id;
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
 
     @Override
     public String toString() {
-        return String.format("ID: %d, name: %s, description: %s, price: %f, category_id: %s, discount_id: %s", id, name, description, price, category_id, discount_id);
+        return String.format("ID: %d, name: %s, description: %s, price: %f, category_id: %s, discount_id: %s", id, name, description, price, categoryId, discountId);
     }
 
 }

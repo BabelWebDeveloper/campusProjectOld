@@ -1,31 +1,26 @@
-package pl.britenet.campus.obj.cardCommands;
+package pl.britenet.campus.obj.cartCommands;
 
-import pl.britenet.campus.builder.CardBuilder;
-import pl.britenet.campus.builder.ProductBuilder;
+import pl.britenet.campus.builder.CartBuilder;
 import pl.britenet.campus.obj.Command;
-import pl.britenet.campus.obj.model.Card;
-import pl.britenet.campus.obj.model.Product;
-import pl.britenet.campus.service.CardService;
-import pl.britenet.campus.service.CategoryService;
+import pl.britenet.campus.obj.model.Cart;
+import pl.britenet.campus.service.CartService;
 
 import java.util.Scanner;
 
-public class CreateCardCommand extends Command {
-    private final CardService cardService;
+public class CreateCartCommand extends Command {
+    private final CartService cartService;
 
-    public CreateCardCommand(CardService cardService) {
-        super("create-card");
+    public CreateCartCommand(CartService cartService) {
+        super("create-cart");
 
-        this.cardService = cardService;
+        this.cartService = cartService;
     }
 
     @Override
     public void perform() {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Wprowadź ID karty:");
-        int id = scanner.nextInt();
-        scanner.nextLine();
+        int id = 0;
 
         System.out.println("Wprowadź customer_id:");
         int customer_id = scanner.nextInt();
@@ -47,18 +42,14 @@ public class CreateCardCommand extends Command {
             isOrdered = false;
         }
 
-        System.out.println("Wprowadź payment_id:");
-        int payment_id = scanner.nextInt();
-
-        Card card = new CardBuilder(id)
+        Cart cart = new CartBuilder(id)
                 .setCustomerId(customer_id)
-                .setPaymentId(payment_id)
-                .setTotalCost(total_cost)
+                .setTotal_Cost(total_cost)
                 .setOrdered(isOrdered)
                 .getCard();
 
-        cardService.create(card);
+        cartService.create(cart);
 
-        System.out.println(card);
+        System.out.println(cart);
     }
 }

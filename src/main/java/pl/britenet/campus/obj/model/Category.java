@@ -23,6 +23,6 @@ public class Category {
 
     @Override
     public String toString() {
-        return String.format("ID: %d, name: %s", id, name);
+        return String.format("category name: %s", name);
     }
 }

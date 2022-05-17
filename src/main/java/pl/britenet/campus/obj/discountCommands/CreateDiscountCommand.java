@@ -24,9 +24,7 @@ public class CreateDiscountCommand extends Command {
     public void perform() {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Wprowadź ID promocji, którą chcesz dodać:");
-        int id = scanner.nextInt();
-        scanner.nextLine();
+        int id = 0;
 
         System.out.println("Wprowadź discount_percent:");
         int discount_percent = scanner.nextInt();

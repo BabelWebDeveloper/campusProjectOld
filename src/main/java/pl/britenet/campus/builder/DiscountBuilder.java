@@ -10,12 +10,12 @@ public class DiscountBuilder {
     }
 
     public DiscountBuilder setDiscountPercent(int discount_percent) {
-        this.discount.setDiscount_percent(discount_percent);
+        this.discount.setPercent(discount_percent);
         return this;
     }
 
-    public DiscountBuilder setDescription(String descriptino) {
-        this.discount.setDiscount_description(descriptino);
+    public DiscountBuilder setDescription(String description) {
+        this.discount.setDescription(description);
         return this;
     }
 

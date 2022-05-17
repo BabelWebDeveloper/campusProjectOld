@@ -20,19 +20,17 @@ public class CreatePaymentCommand extends Command {
     public void perform() {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Wprowadź ID płatności, który chcesz dodać:");
-        int id = scanner.nextInt();
-        scanner.nextLine();
+        int id = 0;
 
-        System.out.println("Wprowadź customer_id:");
-        int customer_id = scanner.nextInt();
+        System.out.println("Wprowadź CardID:");
+        int cardId = scanner.nextInt();
         scanner.nextLine();
 
         System.out.println("Wprowadź date");
         String date = scanner.nextLine();
 
         Payment payment = new PaymentBuilder(id)
-                .setCustomerId(customer_id)
+                .setCardId(cardId)
                 .setDate(date)
                 .getPayment();
 

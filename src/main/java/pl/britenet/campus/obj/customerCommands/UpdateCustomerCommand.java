@@ -3,7 +3,6 @@ package pl.britenet.campus.obj.customerCommands;
 import pl.britenet.campus.builder.CustomerBuilder;
 import pl.britenet.campus.obj.Command;
 import pl.britenet.campus.obj.model.Customer;
-import pl.britenet.campus.service.CardService;
 import pl.britenet.campus.service.CustomerService;
 
 import java.util.Scanner;
@@ -31,29 +30,17 @@ public class UpdateCustomerCommand extends Command {
         System.out.println("Wprowadź nazwisko:");
         String last_name = scanner.nextLine();
 
-        System.out.println("Wprowadź telefon:");
-        String phone = scanner.nextLine();
-
         System.out.println("Wprowadź email:");
         String email = scanner.nextLine();
 
-        System.out.println("Wprowadź ulicę:");
-        String street = scanner.nextLine();
-
-        System.out.println("Wprowadź miasto:");
-        String city = scanner.nextLine();
-
-        System.out.println("Wprowadź kod pocztowy:");
-        int zip_code = scanner.nextInt();
+        System.out.println("Wprowadź adres:");
+        String address = scanner.nextLine();
 
         Customer customer = new CustomerBuilder(id)
                 .setFirstName(first_name)
                 .setLastName(last_name)
-                .setPhone(phone)
                 .setEmail(email)
-                .setStreet(street)
-                .setCity(city)
-                .setZipCode(zip_code)
+                .setAddress(address)
                 .getCustomer();
 
         customerService.update(customer);

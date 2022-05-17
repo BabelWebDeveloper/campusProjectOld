@@ -4,7 +4,6 @@ import pl.britenet.campus.builder.ProductBuilder;
 import pl.britenet.campus.obj.model.Product;
 import pl.britenet.campus.service.database.DatabaseService;
 
-import java.sql.SQLException;
 import java.util.*;
 
 public class ProductService {
@@ -16,58 +15,81 @@ public class ProductService {
     }
 
     public Optional<Product> retrieve(int id) {
-        String sqlQuery = String.format("SELECT * FROM product WHERE id=%d", id);
-        Product product = this.databaseService.performQuery(sqlQuery, resultSet -> {
+        String sqlQuery = String.format("SELECT p.id, p.name, p.description, p.categoryId, p.discountId, p.price, c.name AS categoryName FROM product p INNER JOIN category c ON p.categoryId = c.id WHERE p.id=%d", id);
 
-            if (resultSet.next()) {
-                String name = resultSet.getString("name");
-                String description = resultSet.getString("description");
-                double price = resultSet.getDouble("price");
-                int discount_id = resultSet.getInt("discount_id");
-                int category_id = resultSet.getInt("category_id");
+        try {
+            Product product = this.databaseService.performQuery(sqlQuery, resultSet -> {
+                if (resultSet.next()) {
+                    String name = resultSet.getString("name");
+                    String description = resultSet.getString("description");
+                    double price = resultSet.getDouble("price");
+                    int discount_id = resultSet.getInt("discountId");
+                    int category_id = resultSet.getInt("categoryId");
 
-                return new ProductBuilder(id)
-                        .setName(name)
-                        .setDescription(description)
-                        .setPrice(price)
-                        .setDiscount(discount_id)
-                        .setCategoryId(category_id)
-                        .getProduct();
-            }
-            return null;
+                    return new ProductBuilder(id)
+                            .setName(name)
+                            .setDescription(description)
+                            .setPrice(price)
+                            .setDiscount(discount_id)
+                            .setCategoryId(category_id)
+                            .getProduct();
+                }
+                return null;
 
-        });
+            });
 
-        return Optional.of(product);
+            return Optional.of(product);
+
+        } catch (RuntimeException e) {
+            System.out.println("ERROR!");
+            System.out.println(e.getMessage());
+            return Optional.empty();
+        }
+
     }
 
     public Product create(Product product) {
-        String dml = String.format("INSERT INTO product (name, description, price, discount_id, category_id) VALUES ('%s', '%s', %f, %d, %d)",
+        String dml = String.format("INSERT INTO product (name, description, price, discountId, categoryId) VALUES ('%s', '%s', %.2f, %d, %d)",
                 product.getName(),
                 product.getDescription(),
                 product.getPrice(),
-                product.getDiscount_id(),
-                product.getCategory_id());
+                product.getDiscountId(),
+                product.getCategoryId());
 
-        this.databaseService.performDML(dml);
+        try {
+            this.databaseService.performDML(dml);
+        } catch (RuntimeException e) {
+            System.out.println("ERROR!");
+            System.out.println(e.getMessage());
+        }
         return product;
     }
 
     public void remove(int id) {
         String dml = String.format("DELETE FROM product WHERE id=%d", id);
-        this.databaseService.performDML(dml);
+        try {
+            this.databaseService.performDML(dml);
+        } catch (RuntimeException e) {
+            System.out.println("ERROR!");
+            System.out.println(e.getMessage());
+        }
     }
 
     public Product update(Product product) {
-        String dml = String.format("UPDATE product SET name='%s', description='%s', price='%f', discount_id=%d, category_id=%d WHERE id=%d",
+        String dml = String.format("UPDATE product SET name='%s', description='%s', price='%.2f', discountId=%d, categoryId=%d WHERE id=%d",
                 product.getName(),
                 product.getDescription(),
                 product.getPrice(),
-                product.getDiscount_id(),
-                product.getCategory_id(),
+                product.getDiscountId(),
+                product.getCategoryId(),
                 product.getId());
 
-        this.databaseService.performDML(dml);
+        try {
+            this.databaseService.performDML(dml);
+        } catch (RuntimeException e) {
+            System.out.println("ERROR!");
+            System.out.println(e.getMessage());
+        }
         return product;
     }
 

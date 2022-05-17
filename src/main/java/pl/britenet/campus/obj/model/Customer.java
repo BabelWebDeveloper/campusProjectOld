@@ -5,11 +5,8 @@ public class Customer {
     private int id;
     private String first_name;
     private String last_name;
-    private String phone;
     private String email;
-    private String street;
-    private String city;
-    private int zip_code;
+    private String address;
 
     public Customer(int id) {
         this.id = id;
@@ -35,14 +32,6 @@ public class Customer {
         this.last_name = last_name;
     }
 
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -51,32 +40,16 @@ public class Customer {
         this.email = email;
     }
 
-    public String getStreet() {
-        return street;
+    public String getAddress() {
+        return address;
     }
 
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public int getZip_code() {
-        return zip_code;
-    }
-
-    public void setZip_code(int zip_code) {
-        this.zip_code = zip_code;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     @Override
     public String toString() {
-        return String.format("ID: %d, first name: %s, last name: %s, phone %s, email: %s. street %s, city %s, zip code: %d", id, first_name, last_name, phone, email, street, city, zip_code);
+        return String.format("first name: %s, last name: %s, email: %s. address: %s", first_name, last_name, email, address);
     }
 }

@@ -1,19 +1,19 @@
-package pl.britenet.campus.obj.cardProductCommands;
+package pl.britenet.campus.obj.cartProductCommands;
 
-import pl.britenet.campus.builder.CardProductBuilder;
+import pl.britenet.campus.builder.CartProductBuilder;
 import pl.britenet.campus.obj.Command;
-import pl.britenet.campus.obj.model.CardProduct;
-import pl.britenet.campus.service.CardProductService;
+import pl.britenet.campus.obj.model.CartProduct;
+import pl.britenet.campus.service.CartProductService;
 
 import java.util.Scanner;
 
-public class UpdateCardProductCommand extends Command {
-    private final CardProductService cardProductService;
+public class UpdateCartProductCommand extends Command {
+    private final CartProductService cartProductService;
 
-    public UpdateCardProductCommand(CardProductService cardProductService) {
-        super("update-cardProduct");
+    public UpdateCartProductCommand(CartProductService cartProductService) {
+        super("update-cartProduct");
 
-        this.cardProductService = cardProductService;
+        this.cartProductService = cartProductService;
     }
 
     @Override
@@ -35,16 +35,16 @@ public class UpdateCardProductCommand extends Command {
         System.out.println("Wprowadź quantity:");
         int quantity = scanner.nextInt();
 
-        CardProduct cardProduct = new CardProductBuilder(id)
+        CartProduct cartProduct = new CartProductBuilder(id)
                 .setCardId(card_id)
                 .setProductId(product_id)
                 .setQuantity(quantity)
                 .getCardProduct();
 
-        cardProductService.update(cardProduct);
+        cartProductService.update(cartProduct);
 
-        cardProduct = cardProductService.retrieve(id).orElseThrow();
+        cartProduct = cartProductService.retrieve(id).orElseThrow();
 
-        System.out.println(cardProduct);
+        System.out.println(cartProduct);
     }
 }

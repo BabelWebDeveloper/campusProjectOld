@@ -2,8 +2,8 @@ package pl.britenet.campus.obj.model;
 
 public class Discount {
     private int id;
-    private int discount_percent;
-    private String discount_description;
+    private int percent;
+    private String description;
 
     public Discount(int id) {
         this.id = id;
@@ -13,23 +13,23 @@ public class Discount {
         return id;
     }
 
-    public String getDiscount_description() {
-        return discount_description;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDiscount_description(String discount_description) {
-        this.discount_description = discount_description;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public int getDiscount_percent() {
-        return discount_percent;
+    public int getPercent() {
+        return percent;
     }
 
-    public void setDiscount_percent(int discount_percent) {
-        this.discount_percent = discount_percent;
+    public void setPercent(int percent) {
+        this.percent = percent;
     }
     @Override
     public String toString() {
-        return String.format("ID: %d, discount-percent: %d, Description: %s", id, discount_percent, discount_description);
+        return String.format("discount-percent: %d, Description: %s", percent, description);
     }
 }

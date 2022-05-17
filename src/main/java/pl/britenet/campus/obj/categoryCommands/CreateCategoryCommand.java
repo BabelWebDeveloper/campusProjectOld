@@ -22,9 +22,7 @@ public class CreateCategoryCommand extends Command {
     public void perform() {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Wprowadź ID kategorii, którą chcesz dodać:");
-        int id = scanner.nextInt();
-        scanner.nextLine();
+        int id = 0;
 
         System.out.println("Wprowadź nazwę kategorii:");
         String name = scanner.nextLine();

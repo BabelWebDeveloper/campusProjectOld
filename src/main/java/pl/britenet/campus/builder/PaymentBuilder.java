@@ -9,8 +9,8 @@ public class PaymentBuilder {
         this.payment = new Payment(id);
     }
 
-    public PaymentBuilder setCustomerId(int customer_id) {
-        this.payment.setCustomer_id(customer_id);
+    public PaymentBuilder setCardId(int cardId) {
+        this.payment.setCardId(cardId);
         return this;
     }
 

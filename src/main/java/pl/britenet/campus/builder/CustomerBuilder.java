@@ -1,6 +1,5 @@
 package pl.britenet.campus.builder;
 
-import pl.britenet.campus.obj.model.Category;
 import pl.britenet.campus.obj.model.Customer;
 
 public class CustomerBuilder {
@@ -20,28 +19,13 @@ public class CustomerBuilder {
         return this;
     }
 
-    public CustomerBuilder setPhone(String phone) {
-        this.customer.setPhone(phone);
-        return this;
-    }
-
     public CustomerBuilder setEmail(String email) {
         this.customer.setEmail(email);
         return this;
     }
 
-    public CustomerBuilder setStreet(String street) {
-        this.customer.setStreet(street);
-        return this;
-    }
-
-    public CustomerBuilder setCity(String city) {
-        this.customer.setCity(city);
-        return this;
-    }
-
-    public CustomerBuilder setZipCode(int zip_code) {
-        this.customer.setZip_code(zip_code);
+    public CustomerBuilder setAddress(String address) {
+        this.customer.setAddress(address);
         return this;
     }
 

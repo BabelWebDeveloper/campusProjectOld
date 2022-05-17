@@ -18,34 +18,52 @@ public class CategoryService {
 
     public Optional<Category> retrieve(int id) {
         String sqlQuery = String.format("SELECT * FROM category WHERE id=%d", id);
-        Category category = this.databaseService.performQuery(sqlQuery, resultSet -> {
 
-            if (resultSet.next()) {
-                String name = resultSet.getString("name");
+        try {
+            Category category = this.databaseService.performQuery(sqlQuery, resultSet -> {
 
-                return new CategoryBuilder(id)
-                        .setName(name)
-                        .getCategory();
+                if (resultSet.next()) {
+                    String name = resultSet.getString("name");
 
-            }
-            return null;
+                    return new CategoryBuilder(id)
+                            .setName(name)
+                            .getCategory();
 
-        });
+                }
+                return null;
 
-        return Optional.of(category);
+            });
+
+            return Optional.of(category);
+        } catch (RuntimeException e) {
+            System.out.println("ERROR!");
+            System.out.println(e.getMessage());
+            return Optional.empty();
+        }
+
     }
 
     public Category create(Category category) {
         String dml = String.format("INSERT INTO category (name) VALUES ('%s')",
                 category.getName());
 
-        this.databaseService.performDML(dml);
+        try {
+            this.databaseService.performDML(dml);
+        } catch (RuntimeException e) {
+            System.out.println("ERROR!");
+            System.out.println(e.getMessage());
+        }
         return category;
     }
 
     public void remove(int id) {
         String dml = String.format("DELETE FROM category WHERE id=%d", id);
-        this.databaseService.performDML(dml);
+        try {
+            this.databaseService.performDML(dml);
+        } catch (RuntimeException e) {
+            System.out.println("ERROR!");
+            System.out.println(e.getMessage());
+        }
     }
 
     public Category update(Category category) {
@@ -53,13 +71,23 @@ public class CategoryService {
                 category.getName(),
                 category.getId());
 
-        this.databaseService.performDML(dml);
+        try {
+            this.databaseService.performDML(dml);
+        } catch (RuntimeException e) {
+            System.out.println("ERROR!");
+            System.out.println(e.getMessage());
+        }
         return category;
     }
 
     public void display(int id){
-        Category category = this.retrieve(id).orElseThrow();
-        System.out.println(category);
+        try {
+            Category category = this.retrieve(id).orElseThrow();
+            System.out.println(category);
+        } catch (NullPointerException e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 
 //    public void display(){

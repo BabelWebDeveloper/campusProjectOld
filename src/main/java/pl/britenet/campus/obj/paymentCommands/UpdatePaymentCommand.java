@@ -22,15 +22,15 @@ public class UpdatePaymentCommand extends Command {
         int id = scanner.nextInt();
         scanner.nextLine();
 
-        System.out.println("Wprowadź customer_id:");
-        int customer_id = scanner.nextInt();
+        System.out.println("Wprowadź cardId:");
+        int cardId = scanner.nextInt();
         scanner.nextLine();
 
         System.out.println("Wprowadź date");
         String date = scanner.nextLine();
 
         Payment payment = new PaymentBuilder(id)
-                .setCustomerId(customer_id)
+                .setCardId(cardId)
                 .setDate(date)
                 .getPayment();
 

@@ -1,13 +1,13 @@
 package pl.britenet.campus.obj.model;
 
-public class CardProduct {
+public class CartProduct {
     private int id;
-    private int card_id;
-    private int product_id;
+    private int cartId;
+    private int productId;
 
     private int quantity;
 
-    public CardProduct(int id) {
+    public CartProduct(int id) {
         this.id = id;
     }
 
@@ -16,19 +16,19 @@ public class CardProduct {
     }
 
     public int getCard_id() {
-        return card_id;
+        return cartId;
     }
 
     public void setCard_id(int card_id) {
-        this.card_id = card_id;
+        this.cartId = card_id;
     }
 
-    public int getProduct_id() {
-        return product_id;
+    public int getProductId() {
+        return productId;
     }
 
-    public void setProduct_id(int product_id) {
-        this.product_id = product_id;
+    public void setProductId(int productId) {
+        this.productId = productId;
     }
 
     public int getQuantity() {
@@ -41,6 +41,6 @@ public class CardProduct {
 
     @Override
     public String toString() {
-        return String.format("ID: %d, card_id: %s, product_id: %s , quantity: %s", id, card_id, product_id, quantity);
+        return String.format("card_id: %s, product_id: %s , quantity: %s", cartId, productId, quantity);
     }
 }

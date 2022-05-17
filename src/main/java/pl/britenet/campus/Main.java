@@ -1,15 +1,15 @@
 package pl.britenet.campus;
 
 import pl.britenet.campus.obj.*;
-import pl.britenet.campus.obj.cardCommands.CreateCardCommand;
-import pl.britenet.campus.obj.cardCommands.DeleteCardCommand;
-import pl.britenet.campus.obj.cardCommands.RetrieveCardCommand;
-import pl.britenet.campus.obj.cardCommands.UpdateCardCommand;
+import pl.britenet.campus.obj.cartCommands.CreateCartCommand;
+import pl.britenet.campus.obj.cartCommands.DeleteCartCommand;
+import pl.britenet.campus.obj.cartCommands.RetrieveCartCommand;
+import pl.britenet.campus.obj.cartCommands.UpdateCartCommand;
 
-import pl.britenet.campus.obj.cardProductCommands.CreateCardProductCommand;
-import pl.britenet.campus.obj.cardProductCommands.DeleteCardProductCommand;
-import pl.britenet.campus.obj.cardProductCommands.RetrieveCardProductCommand;
-import pl.britenet.campus.obj.cardProductCommands.UpdateCardProductCommand;
+import pl.britenet.campus.obj.cartProductCommands.CreateCartProductCommand;
+import pl.britenet.campus.obj.cartProductCommands.DeleteCartProductCommand;
+import pl.britenet.campus.obj.cartProductCommands.RetrieveCartProductCommand;
+import pl.britenet.campus.obj.cartProductCommands.UpdateCartProductCommand;
 import pl.britenet.campus.obj.categoryCommands.CreateCategoryCommand;
 import pl.britenet.campus.obj.categoryCommands.DeleteCategoryCommand;
 import pl.britenet.campus.obj.categoryCommands.RetrieveCategoryCommand;
@@ -47,8 +47,8 @@ public class Main {
         DatabaseService databaseService = new DatabaseService();
         ProductService productService = new ProductService(databaseService);
         CategoryService categoryService = new CategoryService(databaseService);
-        CardService cardService = new CardService(databaseService);
-        CardProductService cardProductService = new CardProductService(databaseService);
+        CartService cartService = new CartService(databaseService);
+        CartProductService cartProductService = new CartProductService(databaseService);
         CustomerService customerService = new CustomerService(databaseService);
         PaymentService paymentService = new PaymentService(databaseService);
         DiscountService discountService = new DiscountService(databaseService);
@@ -71,15 +71,15 @@ public class Main {
         commandService.registerCommand(new UpdateCategoryCommand(categoryService));
         commandService.registerCommand(new DeleteCategoryCommand(categoryService));
 
-        commandService.registerCommand(new CreateCardCommand(cardService));
-        commandService.registerCommand(new RetrieveCardCommand(cardService));
-        commandService.registerCommand(new UpdateCardCommand(cardService));
-        commandService.registerCommand(new DeleteCardCommand(cardService));
+        commandService.registerCommand(new CreateCartCommand(cartService));
+        commandService.registerCommand(new RetrieveCartCommand(cartService));
+        commandService.registerCommand(new UpdateCartCommand(cartService));
+        commandService.registerCommand(new DeleteCartCommand(cartService));
 
-        commandService.registerCommand(new CreateCardProductCommand(cardProductService));
-        commandService.registerCommand(new RetrieveCardProductCommand(cardProductService));
-        commandService.registerCommand(new UpdateCardProductCommand(cardProductService));
-        commandService.registerCommand(new DeleteCardProductCommand(cardProductService));
+        commandService.registerCommand(new CreateCartProductCommand(cartProductService));
+        commandService.registerCommand(new RetrieveCartProductCommand(cartProductService));
+        commandService.registerCommand(new UpdateCartProductCommand(cartProductService));
+        commandService.registerCommand(new DeleteCartProductCommand(cartProductService));
 
         commandService.registerCommand(new CreateCustomerCommand(customerService));
         commandService.registerCommand(new RetrieveCustomerCommand(customerService));

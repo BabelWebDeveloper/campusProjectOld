@@ -1,9 +1,7 @@
 package pl.britenet.campus.service;
 
 import pl.britenet.campus.builder.PaymentBuilder;
-import pl.britenet.campus.builder.ProductBuilder;
 import pl.britenet.campus.obj.model.Payment;
-import pl.britenet.campus.obj.model.Product;
 import pl.britenet.campus.service.database.DatabaseService;
 
 import java.util.*;
@@ -18,51 +16,79 @@ public class PaymentService {
 
     public Optional<Payment> retrieve(int id) {
         String sqlQuery = String.format("SELECT * FROM payment WHERE id=%d", id);
-        Payment payment = this.databaseService.performQuery(sqlQuery, resultSet -> {
 
-            if (resultSet.next()) {
-                int customer_id = resultSet.getInt("customer_id");
-                String date = resultSet.getString("date");
+        try {
+            Payment payment = this.databaseService.performQuery(sqlQuery, resultSet -> {
 
-                return new PaymentBuilder(id)
-                        .setCustomerId(customer_id)
-                        .setDate(date)
-                        .getPayment();
-            }
-            return null;
+                if (resultSet.next()) {
+                    int customer_id = resultSet.getInt("cartId");
+                    String date = resultSet.getString("date");
 
-        });
+                    return new PaymentBuilder(id)
+                            .setCardId(customer_id)
+                            .setDate(date)
+                            .getPayment();
+                }
+                return null;
 
-        return Optional.of(payment);
+            });
+
+            return Optional.of(payment);
+        } catch (RuntimeException e) {
+            System.out.println("ERROR!");
+            System.out.println(e.getMessage());
+            return Optional.empty();
+        }
+
     }
 
     public Payment create(Payment payment) {
-        String dml = String.format("INSERT INTO payment (customer_id, date) VALUES (%d, '%s')",
-                payment.getCustomer_id(),
+        String dml = String.format("INSERT INTO payment (cartId, date) VALUES (%d, '%s')",
+                payment.getCardId(),
                 payment.getDate());
 
-        this.databaseService.performDML(dml);
+        try {
+            this.databaseService.performDML(dml);
+        } catch (RuntimeException e) {
+            System.out.println("ERROR!");
+            System.out.println(e.getMessage());
+        }
         return payment;
     }
 
     public void remove(int id) {
         String dml = String.format("DELETE FROM product WHERE id=%d", id);
-        this.databaseService.performDML(dml);
+        try {
+            this.databaseService.performDML(dml);
+        } catch (RuntimeException e) {
+            System.out.println("ERROR!");
+            System.out.println(e.getMessage());
+        }
     }
 
     public Payment update(Payment payment) {
-        String dml = String.format("UPDATE payment SET customer_id=%d, date='%s' WHERE id=%d",
-                payment.getCustomer_id(),
+        String dml = String.format("UPDATE payment SET cartId=%d, date='%s' WHERE id=%d",
+                payment.getCardId(),
                 payment.getDate(),
                 payment.getId());
 
-        this.databaseService.performDML(dml);
+        try {
+            this.databaseService.performDML(dml);
+        } catch (RuntimeException e) {
+            System.out.println("ERROR!");
+            System.out.println(e.getMessage());
+        }
         return payment;
     }
 
     public void display(int id){
-        Payment payment = this.retrieve(id).orElseThrow();
-        System.out.println(payment);
+        try {
+            Payment payment = this.retrieve(id).orElseThrow();
+            System.out.println(payment);
+        } catch (NullPointerException e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 
 //    public void display(){

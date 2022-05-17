@@ -1,9 +1,7 @@
 package pl.britenet.campus.service;
 
 import pl.britenet.campus.builder.CustomerBuilder;
-import pl.britenet.campus.builder.PaymentBuilder;
 import pl.britenet.campus.obj.model.Customer;
-import pl.britenet.campus.obj.model.Payment;
 import pl.britenet.campus.service.database.DatabaseService;
 
 import java.util.*;
@@ -18,71 +16,86 @@ public class CustomerService {
 
     public Optional<Customer> retrieve(int id) {
         String sqlQuery = String.format("SELECT * FROM payment WHERE id=%d", id);
-        Customer customer = this.databaseService.performQuery(sqlQuery, resultSet -> {
+        try {
+            Customer customer = this.databaseService.performQuery(sqlQuery, resultSet -> {
 
-            if (resultSet.next()) {
-                String first_name = resultSet.getString("first_name");
-                String last_name = resultSet.getString("last_name");
-                String phone = resultSet.getString("phone");
-                String email = resultSet.getString("email");
-                String street = resultSet.getString("street");
-                String city = resultSet.getString("city");
-                int zip_code = resultSet.getInt("zip_code");
+                if (resultSet.next()) {
+                    String first_name = resultSet.getString("first_name");
+                    String last_name = resultSet.getString("last_name");
+                    String email = resultSet.getString("email");
+                    String address = resultSet.getString("address");
 
-                return new CustomerBuilder(id)
-                        .setFirstName(first_name)
-                        .setLastName(last_name)
-                        .setPhone(phone)
-                        .setEmail(email)
-                        .setStreet(street)
-                        .setCity(city)
-                        .setZipCode(zip_code)
-                        .getCustomer();
-            }
-            return null;
+                    return new CustomerBuilder(id)
+                            .setFirstName(first_name)
+                            .setLastName(last_name)
+                            .setEmail(email)
+                            .setAddress(address)
+                            .getCustomer();
+                }
+                return null;
 
-        });
+            });
 
-        return Optional.of(customer);
+            return Optional.of(customer);
+        } catch (RuntimeException e) {
+            System.out.println("ERROR!");
+            System.out.println(e.getMessage());
+            return Optional.empty();
+        }
+
     }
 
     public Customer create(Customer customer) {
-        String dml = String.format("INSERT INTO customer (first_name, last_name, phone, email, street, city, zip_code) VALUES ('%s','%s','%s','%s','%s','%s', %d)",
+        String dml = String.format("INSERT INTO customer (first_name, last_name, email, address) VALUES ('%s','%s','%s','%s')",
                 customer.getFirst_name(),
                 customer.getLast_name(),
-                customer.getPhone(),
                 customer.getEmail(),
-                customer.getStreet(),
-                customer.getCity(),
-                customer.getZip_code());
+                customer.getAddress());
 
-        this.databaseService.performDML(dml);
+        try {
+            this.databaseService.performDML(dml);
+        } catch (RuntimeException e) {
+            System.out.println("ERROR!");
+            System.out.println(e.getMessage());
+        }
         return customer;
     }
 
     public void remove(int id) {
         String dml = String.format("DELETE FROM customer WHERE id=%d", id);
-        this.databaseService.performDML(dml);
+        try {
+            this.databaseService.performDML(dml);
+        } catch (RuntimeException e) {
+            System.out.println("ERROR!");
+            System.out.println(e.getMessage());
+        }
     }
 
     public Customer update(Customer customer) {
-        String dml = String.format("UPDATE customer SET first_name='%s', last_name='%s', phone='%s', email='%s', street='%s', city='%s', zip_code=%d WHERE id=%d",
+        String dml = String.format("UPDATE customer SET first_name='%s', last_name='%s', email='%s', address='%s' WHERE id=%d",
                 customer.getFirst_name(),
                 customer.getLast_name(),
-                customer.getPhone(),
                 customer.getEmail(),
-                customer.getStreet(),
-                customer.getCity(),
-                customer.getZip_code(),
+                customer.getAddress(),
                 customer.getId());
 
-        this.databaseService.performDML(dml);
+        try {
+            this.databaseService.performDML(dml);
+        } catch (RuntimeException e) {
+            System.out.println("ERROR!");
+            System.out.println(e.getMessage());
+        }
         return customer;
     }
 
     public void display(int id){
-        Customer customer = this.retrieve(id).orElseThrow();
-        System.out.println(customer);
+        try {
+            Customer customer = this.retrieve(id).orElseThrow();
+            System.out.println(customer);
+        } catch (NullPointerException e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 
 //    public void display(){

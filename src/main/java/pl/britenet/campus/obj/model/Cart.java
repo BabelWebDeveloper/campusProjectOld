@@ -1,15 +1,14 @@
 package pl.britenet.campus.obj.model;
 
-public class Card {
+public class Cart {
     private int id;
-    private int customer_id;
+    private int customerId;
 
-    private int payment_id;
     private double total_cost;
 
     private boolean isOrdered;
 
-    public Card(int id) {
+    public Cart(int id) {
         this.id = id;
     }
 
@@ -17,12 +16,12 @@ public class Card {
         return id;
     }
 
-    public int getCustomer_id() {
-        return customer_id;
+    public int getCustomerId() {
+        return customerId;
     }
 
-    public void setCustomer_id(int customer_id) {
-        this.customer_id = customer_id;
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
     }
 
     public double getTotal_cost() {
@@ -31,14 +30,6 @@ public class Card {
 
     public void setTotal_cost(double total_cost) {
         this.total_cost = total_cost;
-    }
-
-    public int getPayment_id() {
-        return payment_id;
-    }
-
-    public void setPayment_id(int payment_id) {
-        this.payment_id = payment_id;
     }
 
     public boolean isOrdered() {
@@ -53,6 +44,6 @@ public class Card {
 
     @Override
     public String toString() {
-        return String.format("ID: %d, customer_id: %d, total_cost: %f, idOrdered: %b", id, customer_id, total_cost, isOrdered);
+        return String.format("ID: %d, customer_id: %d, total_cost: %f, idOrdered: %b", id, customerId, total_cost, isOrdered);
     }
 }

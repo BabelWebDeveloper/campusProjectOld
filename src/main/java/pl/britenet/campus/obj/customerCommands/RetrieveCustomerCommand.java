@@ -1,7 +1,6 @@
 package pl.britenet.campus.obj.customerCommands;
 
 import pl.britenet.campus.obj.Command;
-import pl.britenet.campus.service.CardService;
 import pl.britenet.campus.service.CustomerService;
 
 import java.util.Scanner;

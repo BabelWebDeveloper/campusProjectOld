@@ -50,6 +50,11 @@ public class Discount {
 
     @Override
     public String toString() {
-        return String.format("produkt: %s, kategoria: %s, opis promocji: %s", product.getName(), category.getName(), description);
+        try {
+            return String.format("produkt: %s, kategoria: %s, opis promocji: %s", product.getName(), category.getName(), description);
+        } catch (NullPointerException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
     }
 }

@@ -44,6 +44,6 @@ public class Cart {
 
     @Override
     public String toString() {
-        return String.format("ID: %d, customer_id: %d, total_cost: %f, idOrdered: %b", id, customerId, total_cost, isOrdered);
+        return String.format("customer_id: %d, total_cost: %f, idOrdered: %b", customerId, total_cost, isOrdered);
     }
 }

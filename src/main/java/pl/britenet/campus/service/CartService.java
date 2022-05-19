@@ -70,7 +70,7 @@ public class CartService {
     }
 
     public Cart update(Cart cart) {
-        String dml = String.format("UPDATE cart SET customer_id=%d, total_cost='%.2f', isOrdered=%b WHERE id=%d",
+        String dml = String.format("UPDATE cart SET customerId=%d, total_cost='%.2f', isOrdered=%b WHERE id=%d",
                 cart.getCustomerId(),
                 cart.getTotal_cost(),
                 cart.isOrdered(),

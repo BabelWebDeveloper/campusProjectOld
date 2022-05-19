@@ -1,5 +1,7 @@
 package pl.britenet.campus.obj.model;
 
+import java.util.Date;
+
 public class Payment {
     private int id;
     private int cardId;
@@ -29,10 +31,8 @@ public class Payment {
         this.date = date;
     }
 
-
-
     @Override
     public String toString() {
-        return String.format("card-id: %d, date: %s", cardId, date);
+        return String.format("card-id: %d", cardId);
     }
 }

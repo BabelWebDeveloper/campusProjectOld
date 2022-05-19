@@ -87,6 +87,11 @@ public class Customer {
 
     @Override
     public String toString() {
-        return String.format("first name: %s, last name: %s, nazwa produktu: %s ilość: %d, nazwa kategorii: %s", first_name, last_name, product.getName(), cartProduct.getQuantity(), category.getName());
+        try {
+            return String.format("first name: %s, last name: %s, nazwa produktu: %s ilość: %d, nazwa kategorii: %s", first_name, last_name, product.getName(), cartProduct.getQuantity(), category.getName());
+        } catch (NullPointerException e){
+            return null;
+        }
+
     }
 }

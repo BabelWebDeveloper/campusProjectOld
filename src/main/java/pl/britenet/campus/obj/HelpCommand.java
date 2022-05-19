@@ -15,9 +15,17 @@ public class HelpCommand extends Command {
                 "create- -> Stwórz nowy\n" +
                 "retrieve- -> Wybierz i wyświetl \n" +
                 "update- -> Zaktualizuj\n" +
-                "delete- -> Usuń\n");
-        System.out.println("exit -> exit from app");
+                "delete- -> Usuń\n" +
+                "=======================\n" +
+                "Raporty:\n" +
+                "salesByCategory\n" +
+                "salesByDiscount\n" +
+                "salesYear\n" +
+                "salesMonth\n" +
+                "salesByProduct\n" +
+                "salesCart");
         System.out.println("====================");
+        System.out.println("exit -> exit from app");
     }
 
 }

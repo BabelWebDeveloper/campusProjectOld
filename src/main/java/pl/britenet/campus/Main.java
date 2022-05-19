@@ -32,8 +32,10 @@ import pl.britenet.campus.obj.productCommands.CreateProductCommand;
 import pl.britenet.campus.obj.productCommands.DeleteProductCommand;
 import pl.britenet.campus.obj.productCommands.RetrieveProductCommand;
 import pl.britenet.campus.obj.productCommands.UpdateProductCommand;
+import pl.britenet.campus.obj.reportCommands.*;
 import pl.britenet.campus.service.*;
 import pl.britenet.campus.service.database.DatabaseService;
+import pl.britenet.campus.service.reportService.*;
 
 import java.util.Locale;
 import java.util.Optional;
@@ -52,6 +54,14 @@ public class Main {
         CustomerService customerService = new CustomerService(databaseService);
         PaymentService paymentService = new PaymentService(databaseService);
         DiscountService discountService = new DiscountService(databaseService);
+
+//        Raporty:
+        CategoryProductService categoryProductService = new CategoryProductService(databaseService);
+        OrderByDiscountService orderByDiscountService = new OrderByDiscountService(databaseService);
+        SalesInYearService salesInYearService = new SalesInYearService(databaseService);
+        SalesInMonthService salesInMonthService = new SalesInMonthService(databaseService);
+        ProductCustomerService productCustomerService = new ProductCustomerService(databaseService);
+        ProductInCartService productInCartService = new ProductInCartService(databaseService);
 
         CommandService commandService = new CommandService();
 
@@ -96,7 +106,14 @@ public class Main {
         commandService.registerCommand(new UpdateDiscountCommand(discountService));
         commandService.registerCommand(new DeleteDiscountCommand(discountService));
 
-        System.out.println("Witamy w sklepie internetowym!");
+//        Komendy raportów:
+        commandService.registerCommand(new CreateCategoryProductReport(categoryProductService));
+        commandService.registerCommand(new CreateOrderByDiscountReport(orderByDiscountService));
+        commandService.registerCommand(new CreateSalesInYearReport(salesInYearService));
+        commandService.registerCommand(new CreateSalesInMonthReport(salesInMonthService));
+        commandService.registerCommand(new CreateProductCustomerReport(productCustomerService));
+        commandService.registerCommand(new CreateProductInCartReport(productInCartService));
+
         commandService.getCommand("help").get().perform();
 
         boolean isRunning = true;

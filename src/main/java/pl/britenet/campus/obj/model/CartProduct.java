@@ -68,7 +68,7 @@ public class CartProduct {
 
     @Override
     public String toString() {
-//        return String.format("card_id: %s, product_id: %s , quantity: %s", cartId, productId, quantity);
-        return String.format("Nazwa produktu: %s, Ilość: %s, Nazwa kategorii: %s", product.getName(), quantity, category.getName());
+        return String.format("card_id: %s, product_id: %s , quantity: %s", cartId, productId, quantity);
+//        return String.format("Nazwa produktu: %s, Ilość: %s, Nazwa kategorii: %s", product.getName(), quantity, category.getName());
     }
 }

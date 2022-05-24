@@ -106,7 +106,7 @@ public class Main {
         commandService.registerCommand(new UpdateDiscountCommand(discountService));
         commandService.registerCommand(new DeleteDiscountCommand(discountService));
 
-//        Komendy raportów:
+//        Komendy raportów :
         commandService.registerCommand(new CreateCategoryProductReport(categoryProductService));
         commandService.registerCommand(new CreateOrderByDiscountReport(orderByDiscountService));
         commandService.registerCommand(new CreateSalesInYearReport(salesInYearService));

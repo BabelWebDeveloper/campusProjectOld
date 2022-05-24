@@ -1,7 +1,6 @@
 package pl.britenet.campus.obj.productCommands;
 
 import pl.britenet.campus.obj.Command;
-import pl.britenet.campus.obj.model.Product;
 import pl.britenet.campus.service.ProductService;
 
 import java.util.Scanner;

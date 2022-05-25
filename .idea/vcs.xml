@@ -2,6 +2,8 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Front/KubaGithub/britenet-front-end-may" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Front/Trash/campusProject kosz" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/KubaGithub/britenet-front-end-may" vcs="Git" />
   </component>
 </project>

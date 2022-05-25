@@ -68,6 +68,7 @@ public class Main {
         HelpCommand helpCommand = new HelpCommand();
         ExitCommand exitCommand = new ExitCommand();
 
+
         commandService.registerCommand(helpCommand);
         commandService.registerCommand(exitCommand);
 

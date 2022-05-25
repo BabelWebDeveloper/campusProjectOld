@@ -11,6 +11,9 @@ public class Cart {
     public Cart(int id) {
         this.id = id;
     }
+    public Cart() {
+        this.id = 0;
+    }
 
     public int getId() {
         return id;

@@ -11,6 +11,9 @@ public class Discount {
     public Discount(int id) {
         this.id = id;
     }
+    public Discount() {
+        this.id = 0;
+    }
 
     public int getId() {
         return id;

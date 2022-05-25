@@ -7,11 +7,14 @@ public class CartProduct {
 
     private int quantity;
 
-    private Category category;
-    private Product product;
+//    private Category category;
+//    private Product product;
 
     public CartProduct(int id) {
         this.id = id;
+    }
+    public CartProduct() {
+        this.id = 0;
     }
 
     public int getId() {
@@ -50,21 +53,21 @@ public class CartProduct {
         this.cartId = cartId;
     }
 
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
+//    public Category getCategory() {
+//        return category;
+//    }
+//
+//    public void setCategory(Category category) {
+//        this.category = category;
+//    }
+//
+//    public Product getProduct() {
+//        return product;
+//    }
+//
+//    public void setProduct(Product product) {
+//        this.product = product;
+//    }
 
     @Override
     public String toString() {

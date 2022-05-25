@@ -26,15 +26,15 @@ public class CartProductBuilder {
         return this;
     }
 
-    public CartProductBuilder setCategory (Category category) {
-        this.cartProduct.setCategory(category);
-        return this;
-    }
-
-    public CartProductBuilder setProduct (Product product) {
-        this.cartProduct.setProduct(product);
-        return this;
-    }
+//    public CartProductBuilder setCategory (Category category) {
+//        this.cartProduct.setCategory(category);
+//        return this;
+//    }
+//
+//    public CartProductBuilder setProduct (Product product) {
+//        this.cartProduct.setProduct(product);
+//        return this;
+//    }
 
     public CartProduct getCardProduct() {
         return this.cartProduct;

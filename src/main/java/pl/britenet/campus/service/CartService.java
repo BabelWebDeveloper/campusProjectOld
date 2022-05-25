@@ -45,7 +45,7 @@ public class CartService {
     }
 
     public Cart create(Cart cart) {
-        String dml = String.format("INSERT INTO cart (customerId, total_cost, isOrdered) VALUES (%d, '%.2f', %b)",
+        String dml = String.format("INSERT INTO cart (customerId, total_cost, isOrdered) VALUES (%d, %.2f, %b)",
                 cart.getCustomerId(),
                 cart.getTotal_cost(),
                 cart.isOrdered());

@@ -68,6 +68,7 @@ public class ProductService {
             this.databaseService.performDML(dml);
         } catch (RuntimeException e) {
             System.out.println("ERROR!");
+            System.out.println(dml);
             System.out.println(e.getMessage());
         }
         return product;

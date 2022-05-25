@@ -15,13 +15,7 @@ public class CustomerService {
     }
 
     public Optional<Customer> retrieve(int id) {
-        String sqlQuery = String.format("SELECT cr.first_name, cr.last_name, pr.name, cpr.quantity, cat.name, cat.id, pr.id, cr.email, cr.address, ca.id, cpr.quantity\n" +
-                "FROM customer cr\n" +
-                "INNER JOIN cart ca ON ca.customerId = cr.id\n" +
-                "INNER JOIN cartproduct cpr ON ca.id = cpr.cartId\n" +
-                "INNER JOIN product pr ON cpr.productId = pr.id\n" +
-                "INNER JOIN category cat ON cat.id = pr.categoryId\n" +
-                "WHERE cr.id = %d", id);
+        String sqlQuery = String.format("SELECT * FROM customer WHERE id=%d", id);
         try {
             Customer customer = this.databaseService.performQuery(sqlQuery, resultSet -> {
 
@@ -31,45 +25,11 @@ public class CustomerService {
                     String email = resultSet.getString("email");
                     String address = resultSet.getString("address");
 
-                    int category_id = resultSet.getInt("cat.id");
-                    String categoryName = resultSet.getString("cat.name");
-
-                    int product_id = resultSet.getInt("pr.id");
-                    String productName = resultSet.getString("pr.name");
-
-                    int card_id = resultSet.getInt("ca.id");
-
-                    int cp_quantity = resultSet.getInt("cpr.quantity");
-
-                    Category category = new CategoryBuilder(category_id)
-                            .setName(categoryName)
-                            .getCategory();
-
-                    Product product = new ProductBuilder(product_id)
-                            .setName(productName)
-                            .setCategoryId(category_id)
-                            .getProduct();
-
-                    CartProduct cartProduct = new CartProductBuilder(id)
-                            .setCardId(card_id)
-                            .setProductId(product_id)
-                            .setQuantity(cp_quantity)
-                            .setCategory(category)
-                            .setProduct(product)
-                            .getCardProduct();
-
-                    Cart cart = new CartBuilder(id)
-                            .getCard();
-
                     return new CustomerBuilder(id)
                             .setFirstName(first_name)
                             .setLastName(last_name)
                             .setEmail(email)
                             .setAddress(address)
-                            .setCategory(category)
-                            .setProduct(product)
-                            .setCart(cart)
-                            .setCartProduct(cartProduct)
                             .getCustomer();
                 }
                 return null;

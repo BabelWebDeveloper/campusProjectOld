@@ -11,6 +11,10 @@ public class Payment {
         this.id = id;
     }
 
+    public Payment() {
+        this.id = 0;
+    }
+
     public int getId() {
         return id;
     }

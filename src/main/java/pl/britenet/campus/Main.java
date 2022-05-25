@@ -102,6 +102,7 @@ public class Main {
         commandService.registerCommand(new DeletePaymentCommand(paymentService));
 
         commandService.registerCommand(new CreateDiscountCommand(discountService));
+        commandService.registerCommand(new CreateDiscountCommand(discountService));
         commandService.registerCommand(new RetrieveDiscountCommand(discountService));
         commandService.registerCommand(new UpdateDiscountCommand(discountService));
         commandService.registerCommand(new DeleteDiscountCommand(discountService));

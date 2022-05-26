@@ -57,7 +57,7 @@ public class PaymentService {
     }
 
     public void remove(int id) {
-        String dml = String.format("DELETE FROM product WHERE id=%d", id);
+        String dml = String.format("DELETE FROM payment WHERE id=%d", id);
         try {
             this.databaseService.performDML(dml);
         } catch (RuntimeException e) {

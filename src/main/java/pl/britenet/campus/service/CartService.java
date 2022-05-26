@@ -22,7 +22,7 @@ public class CartService {
 
                 if (resultSet.next()) {
                     int customer_id = resultSet.getInt("customerId");
-                    double total_cost = resultSet.getInt("total_cost");
+                    double total_cost = resultSet.getDouble("total_cost");//przecinek zamienić na kropkę
                     boolean isOrdered = resultSet.getBoolean("isOrdered");
 
                     return new CartBuilder(id)
@@ -45,11 +45,11 @@ public class CartService {
     }
 
     public Cart create(Cart cart) {
-        String dml = String.format("INSERT INTO cart (customerId, total_cost, isOrdered) VALUES (%d, %.2f, %b)",
+        String dml = String.format("INSERT INTO cart (customerId, total_cost, isOrdered) VALUES (%d, %s, %b)",
                 cart.getCustomerId(),
-                cart.getTotal_cost(),
+                String.valueOf(cart.getTotal_cost()).replace(",","."),
                 cart.isOrdered());
-
+        System.out.println(dml);
         try {
             this.databaseService.performDML(dml);
         } catch (RuntimeException e) {
@@ -70,9 +70,9 @@ public class CartService {
     }
 
     public Cart update(Cart cart) {
-        String dml = String.format("UPDATE cart SET customerId=%d, total_cost='%.2f', isOrdered=%b WHERE id=%d",
+        String dml = String.format("UPDATE cart SET customerId=%d, total_cost=%s, isOrdered=%b WHERE id=%d",
                 cart.getCustomerId(),
-                cart.getTotal_cost(),
+                String.valueOf(cart.getTotal_cost()).replace(",","."),
                 cart.isOrdered(),
                 cart.getId());
 

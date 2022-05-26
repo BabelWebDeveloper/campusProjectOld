@@ -57,10 +57,10 @@ public class ProductService {
     }
 
     public Product create(Product product) {
-        String dml = String.format("INSERT INTO product (name, description, price, discountId, categoryId) VALUES ('%s', '%s', %.2f, %d, %d)",
+        String dml = String.format("INSERT INTO product (name, description, price, discountId, categoryId) VALUES ('%s', '%s', %s, %d, %d)",
                 product.getName(),
                 product.getDescription(),
-                product.getPrice(),
+                String.valueOf(product.getPrice()).replace(",","."),
                 product.getDiscountId(),
                 product.getCategoryId());
 
@@ -85,10 +85,10 @@ public class ProductService {
     }
 
     public Product update(Product product) {
-        String dml = String.format("UPDATE product SET name='%s', description='%s', price='%.2f', discountId=%d, categoryId=%d WHERE id=%d",
+        String dml = String.format("UPDATE product SET name='%s', description='%s', price=%s, discountId=%d, categoryId=%d WHERE id=%d",
                 product.getName(),
                 product.getDescription(),
-                product.getPrice(),
+                String.valueOf(product.getPrice()).replace(",","."),
                 product.getDiscountId(),
                 product.getCategoryId(),
                 product.getId());

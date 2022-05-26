@@ -27,7 +27,8 @@ public class CreateCartCommand extends Command {
         scanner.nextLine();
 
         System.out.println("Wprowadź total_cost:");
-        double total_cost = scanner.nextDouble();
+        double total_cost = scanner.nextDouble();//przecinek zamienić na kropkę
+        System.out.println(total_cost);
         scanner.nextLine();
 
         System.out.println("Wprowadź isOrdered: y/n");

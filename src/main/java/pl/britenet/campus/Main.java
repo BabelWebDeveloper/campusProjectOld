@@ -45,7 +45,7 @@ public class Main {
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-        Locale.setDefault(Locale.US);
+//        Locale.setDefault(Locale.US);
         DatabaseService databaseService = new DatabaseService();
         ProductService productService = new ProductService(databaseService);
         CategoryService categoryService = new CategoryService(databaseService);

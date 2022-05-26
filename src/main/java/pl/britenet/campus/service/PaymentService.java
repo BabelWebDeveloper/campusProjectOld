@@ -14,6 +14,36 @@ public class PaymentService {
         this.databaseService = databaseService;
     }
 
+    public List<Payment> retrieveAll() {
+        String sqlQuery = "SELECT * FROM payment";
+
+        try {
+            return this.databaseService.performQuery(sqlQuery, resultSet -> {
+
+                List<Payment> payments = new ArrayList<>();
+                while (resultSet.next()) {
+                    int id = resultSet.getInt("id");
+                    int cartId = resultSet.getInt("cartId");
+                    String date = resultSet.getString("date");
+
+                    Payment payment = new PaymentBuilder(id)
+                            .setCartId(cartId)
+                            .setDate(date)
+                            .getPayment();
+
+                    payments.add(payment);
+                }
+
+                return payments;
+
+            });
+        } catch (RuntimeException exception) {
+            System.out.println("ERROR!");
+            System.out.println(exception.getMessage());
+
+            return new ArrayList<>();
+        }
+    }
     public Optional<Payment> retrieve(int id) {
         String sqlQuery = String.format("SELECT * FROM payment WHERE id=%d", id);
 
@@ -25,7 +55,7 @@ public class PaymentService {
                     String date = resultSet.getString("date");
 
                     return new PaymentBuilder(id)
-                            .setCardId(customer_id)
+                            .setCartId(customer_id)
                             .setDate(date)
                             .getPayment();
                 }

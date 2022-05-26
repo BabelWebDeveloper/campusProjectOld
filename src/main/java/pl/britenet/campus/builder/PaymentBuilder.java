@@ -9,7 +9,7 @@ public class PaymentBuilder {
         this.payment = new Payment(id);
     }
 
-    public PaymentBuilder setCardId(int cardId) {
+    public PaymentBuilder setCartId(int cardId) {
         this.payment.setCardId(cardId);
         return this;
     }

@@ -1,7 +1,9 @@
 package pl.britenet.campus.service;
 
 import pl.britenet.campus.builder.CartBuilder;
+import pl.britenet.campus.builder.CartProductBuilder;
 import pl.britenet.campus.obj.model.Cart;
+import pl.britenet.campus.obj.model.CartProduct;
 import pl.britenet.campus.service.database.DatabaseService;
 
 import java.util.*;
@@ -12,6 +14,39 @@ public class CartService {
 
     public CartService(DatabaseService databaseService) {
         this.databaseService = databaseService;
+    }
+
+    public List<Cart> retrieveAll() {
+        String sqlQuery = "SELECT * FROM cart";
+
+        try {
+            return this.databaseService.performQuery(sqlQuery, resultSet -> {
+
+                List<Cart> cartList = new ArrayList<>();
+                while (resultSet.next()) {
+                    int id = resultSet.getInt("id");
+                    int customerId = resultSet.getInt("customerId");
+                    double totalCost = resultSet.getDouble("total_cost");
+                    boolean isOrdered = resultSet.getBoolean("isOrdered");
+
+                    Cart cart = new CartBuilder(id)
+                            .setCustomerId(customerId)
+                            .setTotal_Cost(totalCost)
+                            .setOrdered(isOrdered)
+                            .getCard();
+
+                    cartList.add(cart);
+                }
+
+                return cartList;
+
+            });
+        } catch (RuntimeException exception) {
+            System.out.println("ERROR!");
+            System.out.println(exception.getMessage());
+
+            return new ArrayList<>();
+        }
     }
 
     public Optional<Cart> retrieve(int id) {

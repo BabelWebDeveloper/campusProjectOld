@@ -8,18 +8,20 @@
   </head>
   <body>
 
-      <header role="navigation">
-        <div class="header__wrapper">
-          <p>LOGO</p>
+    <header role="navigation">
+      <div class="header__wrapper">
+          <div class="header__wrapper--logo">
+              <img src="img/kampusLogo2.png" alt="">
+          </div>
 
           <nav class="header__items" role="list">
-            <p class="header__item" role="listitem"><a href="indexShop.html">Sklep</a></p>
-            <p class="header__item" role="listitem"><a href="indexOrders.html">Zamówienia</a></p>
+          <p class="header__item" role="listitem"><a href="indexShop.html">Sklep</a></p>
+          <p class="header__item" role="listitem"><a href="indexOrders.html">Zamówienia</a></p>
           </nav>
 
-          <p class="logo"><a href="indexCartproduct.html">Cart</a></p>
-        </div>
-      </header>
+          <a class="header__wrapper--logo" href="indexCartproduct.html"><img src="img/carts.png" alt=""></a>
+      </div>
+    </header>
 
       <main class="shopMain">
           <nav class="categories" role="list">
@@ -34,49 +36,9 @@
           </nav>
 
           <div class="shopbarWrapper">
-            <div class="shopbar">
+            <div class="shopbar" id="shopbar">
 
-              <article class="shopbar__item">
-                <div class="shopbar__item--img">
-                  <img src="img/watch.jpg" class="shopbar__item--img--img" alt="">
-                </div>
-  
-                <p class="shopbar__item--name">Zegarek XYZ</p>
-                <p class="shopbar__item--desc">Lorem ipsum dolor sit amet.</p>
-  
-                <div class="shopbar__item--cartPriceBar">
-                  <p class="shopbar__item--cartPriceBar-price">100 $</p>
-                  <p role="button" class="shopbar__item--cartPriceBar-button">Dodaj do koszyka</p>
-                </div>
-              </article>
-  
-              <article class="shopbar__item">
-                <div class="shopbar__item--img">
-                  <img src="img/watch.jpg" class="shopbar__item--img--img" alt="">
-                </div>
-  
-                <p class="shopbar__item--name">Zegarek XYZ</p>
-                <p class="shopbar__item--desc">Lorem ipsum dolor sit amet.</p>
-  
-                <div class="shopbar__item--cartPriceBar">
-                  <p class="shopbar__item--cartPriceBar-price">100 $</p>
-                  <p role="button" class="shopbar__item--cartPriceBar-button">Dodaj do koszyka</p>
-                </div>
-              </article>
-  
-              <article class="shopbar__item">
-                <div class="shopbar__item--img">
-                  <img src="img/watch.jpg" class="shopbar__item--img--img" alt="">
-                </div>
-  
-                <p class="shopbar__item--name">Zegarek XYZ</p>
-                <p class="shopbar__item--desc">Lorem ipsum dolor sit amet.</p>
-  
-                <div class="shopbar__item--cartPriceBar">
-                  <p class="shopbar__item--cartPriceBar-price">100 $</p>
-                  <p role="button" class="shopbar__item--cartPriceBar-button">Dodaj do koszyka</p>
-                </div>
-              </article>
+              
   
             </div>
           </div> 
@@ -89,5 +51,6 @@
         <p>Polityka prywatności</p>
         <p>Regulamin</p>
       </footer>
+      <script src="js/productService.js"></script>
   </body>
 </html>

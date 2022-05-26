@@ -18,6 +18,38 @@ public class CartProductService {
         this.databaseService = databaseService;
     }
 
+    public List<CartProduct> retrieveAll() {
+        String sqlQuery = "SELECT * FROM cartproduct";
+
+        try {
+            return this.databaseService.performQuery(sqlQuery, resultSet -> {
+
+                List<CartProduct> cartProductList = new ArrayList<>();
+                while (resultSet.next()) {
+                    int id = resultSet.getInt("id");
+                    int cartId = resultSet.getInt("cartId");
+                    int productId = resultSet.getInt("productId ");
+                    int quantity = resultSet.getInt("quantity");
+
+                    CartProduct cartProduct = new CartProductBuilder(id)
+                            .setCardId(cartId)
+                            .setProductId(productId)
+                            .setQuantity(quantity)
+                            .getCardProduct();
+
+                    cartProductList.add(cartProduct);
+                }
+
+                return cartProductList;
+
+            });
+        } catch (RuntimeException exception) {
+            System.out.println("ERROR!");
+            System.out.println(exception.getMessage());
+
+            return new ArrayList<>();
+        }
+    }
     public Optional<CartProduct> retrieve(int id) {
         String sqlQuery = String.format("SELECT * FROM cartproduct WHERE id =%d", id);
 
@@ -28,21 +60,6 @@ public class CartProductService {
                     int card_id = resultSet.getInt("cartId");
                     int product_id = resultSet.getInt("productId");
                     int quantity = resultSet.getInt("quantity");
-
-//                    int category_id = resultSet.getInt("ct.id");
-//                    String categoryName = resultSet.getString("nazwaKategorii");
-//
-//                    String productName = resultSet.getString("p.name");
-
-//                    Category category = new CategoryBuilder(category_id)
-//                            .setName(categoryName)
-//                            .getCategory();
-//
-//                    Product product = new ProductBuilder(product_id)
-//                            .setName(productName)
-//                            .setCategoryId(category_id)
-//                            .setCategory(category)
-//                            .getProduct();
 
                     return new CartProductBuilder(id)
                             .setCardId(card_id)

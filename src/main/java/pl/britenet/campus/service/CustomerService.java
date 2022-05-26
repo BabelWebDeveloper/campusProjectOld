@@ -14,6 +14,40 @@ public class CustomerService {
         this.databaseService = databaseService;
     }
 
+    public List<Customer> retrieveAll() {
+        String sqlQuery = "SELECT * FROM customer";
+
+        try {
+            return this.databaseService.performQuery(sqlQuery, resultSet -> {
+
+                List<Customer> customers = new ArrayList<>();
+                while (resultSet.next()) {
+                    int id = resultSet.getInt("id");
+                    String firstName = resultSet.getString("first_name");
+                    String lastName = resultSet.getString("last_name");
+                    String email = resultSet.getString("email");
+                    String address = resultSet.getString("address");
+
+                    Customer customer = new CustomerBuilder(id)
+                            .setFirstName(firstName)
+                            .setLastName(lastName)
+                            .setEmail(email)
+                            .setAddress(address)
+                            .getCustomer();
+
+                    customers.add(customer);
+                }
+
+                return customers;
+
+            });
+        } catch (RuntimeException exception) {
+            System.out.println("ERROR!");
+            System.out.println(exception.getMessage());
+
+            return new ArrayList<>();
+        }
+    }
     public Optional<Customer> retrieve(int id) {
         String sqlQuery = String.format("SELECT * FROM customer WHERE id=%d", id);
         try {

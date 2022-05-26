@@ -1,7 +1,9 @@
 package pl.britenet.campus.service;
 
+import pl.britenet.campus.builder.CartBuilder;
 import pl.britenet.campus.builder.CategoryBuilder;
 import pl.britenet.campus.builder.ProductBuilder;
+import pl.britenet.campus.obj.model.Cart;
 import pl.britenet.campus.obj.model.Category;
 import pl.britenet.campus.obj.model.Product;
 import pl.britenet.campus.service.database.DatabaseService;
@@ -16,6 +18,34 @@ public class CategoryService {
         this.databaseService = databaseService;
     }
 
+    public List<Category> retrieveAll() {
+        String sqlQuery = "SELECT * FROM category";
+
+        try {
+            return this.databaseService.performQuery(sqlQuery, resultSet -> {
+
+                List<Category> categories = new ArrayList<>();
+                while (resultSet.next()) {
+                    int id = resultSet.getInt("id");
+                    String name = resultSet.getString("name");
+
+                    Category category = new CategoryBuilder(id)
+                            .setName(name)
+                            .getCategory();
+
+                    categories.add(category);
+                }
+
+                return categories;
+
+            });
+        } catch (RuntimeException exception) {
+            System.out.println("ERROR!");
+            System.out.println(exception.getMessage());
+
+            return new ArrayList<>();
+        }
+    }
     public Optional<Category> retrieve(int id) {
         String sqlQuery = String.format("SELECT * FROM category WHERE id=%d", id);
 

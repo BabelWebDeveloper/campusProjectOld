@@ -30,7 +30,7 @@ public class UpdatePaymentCommand extends Command {
         String date = scanner.nextLine();
 
         Payment payment = new PaymentBuilder(id)
-                .setCardId(cardId)
+                .setCartId(cardId)
                 .setDate(date)
                 .getPayment();
 

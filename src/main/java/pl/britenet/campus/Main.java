@@ -120,23 +120,23 @@ public class Main {
 
         boolean isRunning = true;
 
-//        while (isRunning){
-//            String userCommand = scanner.nextLine();
-//            Optional<Command> oCommand = commandService.getCommand(userCommand);
-//
-//            if (userCommand.equals("exit")){
-//                isRunning = false;
-//            }
-//
-//            if (oCommand.isPresent()) {
-//                oCommand.get().perform();
-//            }
-//            else {
-//                System.out.println("Nieznana komenda.");
-//            }
-//        }
+        while (isRunning){
+            String userCommand = scanner.nextLine();
+            Optional<Command> oCommand = commandService.getCommand(userCommand);
+
+            if (userCommand.equals("exit")){
+                isRunning = false;
+            }
+
+            if (oCommand.isPresent()) {
+                oCommand.get().perform();
+            }
+            else {
+                System.out.println("Nieznana komenda.");
+            }
+        }
 //        System.out.println(cartProductService.retrieveCartproducts(2));
-        System.out.println(paymentService.retrieveOrders(4));
+//        System.out.println(paymentService.retrieveOrders(4));
     }
 
 }

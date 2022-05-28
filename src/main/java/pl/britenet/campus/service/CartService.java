@@ -16,29 +16,23 @@ public class CartService {
         this.databaseService = databaseService;
     }
 
-    public List<Cart> retrieveAll() {
-        String sqlQuery = "SELECT * FROM cart";
+    public List<Integer> retrieveIds() {
+        String sqlQuery = "SELECT id FROM cart";
 
         try {
             return this.databaseService.performQuery(sqlQuery, resultSet -> {
 
-                List<Cart> cartList = new ArrayList<>();
+                List<Integer> idList = new ArrayList<>();
                 while (resultSet.next()) {
                     int id = resultSet.getInt("id");
-                    int customerId = resultSet.getInt("customerId");
-                    double totalCost = resultSet.getDouble("total_cost");
-                    boolean isOrdered = resultSet.getBoolean("isOrdered");
 
                     Cart cart = new CartBuilder(id)
-                            .setCustomerId(customerId)
-                            .setTotal_Cost(totalCost)
-                            .setOrdered(isOrdered)
                             .getCard();
 
-                    cartList.add(cart);
+                    idList.add(cart.getId());
                 }
 
-                return cartList;
+                return idList;
 
             });
         } catch (RuntimeException exception) {

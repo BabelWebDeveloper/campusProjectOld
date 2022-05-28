@@ -1,7 +1,7 @@
 package pl.britenet.campus.builder;
 
+import pl.britenet.campus.obj.model.Cart;
 import pl.britenet.campus.obj.model.CartProduct;
-import pl.britenet.campus.obj.model.Category;
 import pl.britenet.campus.obj.model.Product;
 
 public class CartProductBuilder {
@@ -35,6 +35,15 @@ public class CartProductBuilder {
 //        this.cartProduct.setProduct(product);
 //        return this;
 //    }
+    public CartProductBuilder setCart (Cart cart) {
+        this.cartProduct.setCart(cart);
+        return this;
+    }
+
+    public CartProductBuilder setProduct (Product product) {
+        this.cartProduct.setProduct(product);
+        return this;
+    }
 
     public CartProduct getCardProduct() {
         return this.cartProduct;

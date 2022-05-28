@@ -135,6 +135,8 @@ public class Main {
                 System.out.println("Nieznana komenda.");
             }
         }
+//        System.out.println(cartProductService.retrieveCartproducts(2));
+//        System.out.println(productService.retrieveAll());
 
     }
 

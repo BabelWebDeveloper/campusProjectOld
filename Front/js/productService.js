@@ -27,7 +27,7 @@ retrieveProducts()
             <p class="shopbar__item--desc">${product.description}</p>
 
             <div class="shopbar__item--cartPriceBar">
-              <p class="shopbar__item--cartPriceBar-price">${product.price}</p>
+              <p class="shopbar__item--cartPriceBar-price">${product.price} zł</p>
               <p role="button" class="shopbar__item--cartPriceBar-button">Dodaj do koszyka</p>
             </div>
           </article>

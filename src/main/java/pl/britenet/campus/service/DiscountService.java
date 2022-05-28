@@ -20,36 +20,36 @@ public class DiscountService {
         this.databaseService = databaseService;
     }
 
-    public List<Discount> retrieveAll() {
-        String sqlQuery = "SELECT * FROM discount";
-
-        try {
-            return this.databaseService.performQuery(sqlQuery, resultSet -> {
-
-                List<Discount> discounts = new ArrayList<>();
-                while (resultSet.next()) {
-                    int id = resultSet.getInt("id");
-                    int percent = resultSet.getInt("percent");
-                    String description = resultSet.getString("description");
-
-                    Discount discount = new DiscountBuilder(id)
-                            .setDiscountPercent(percent)
-                            .setDescription(description)
-                            .getDiscount();
-
-                    discounts.add(discount);
-                }
-
-                return discounts;
-
-            });
-        } catch (RuntimeException exception) {
-            System.out.println("ERROR!");
-            System.out.println(exception.getMessage());
-
-            return new ArrayList<>();
-        }
-    }
+//    public List<Discount> retrieveAll() {
+//        String sqlQuery = "SELECT * FROM discount";
+//
+//        try {
+//            return this.databaseService.performQuery(sqlQuery, resultSet -> {
+//
+//                List<Discount> discounts = new ArrayList<>();
+//                while (resultSet.next()) {
+//                    int id = resultSet.getInt("id");
+//                    int percent = resultSet.getInt("percent");
+//                    String description = resultSet.getString("description");
+//
+//                    Discount discount = new DiscountBuilder(id)
+//                            .setDiscountPercent(percent)
+//                            .setDescription(description)
+//                            .getDiscount();
+//
+//                    discounts.add(discount);
+//                }
+//
+//                return discounts;
+//
+//            });
+//        } catch (RuntimeException exception) {
+//            System.out.println("ERROR!");
+//            System.out.println(exception.getMessage());
+//
+//            return new ArrayList<>();
+//        }
+//    }
     public Optional<Discount> retrieve(int id) {
         String sqlQuery = String.format("SELECT p.name AS \"produkt\", d.description AS \"promocja\", c.name AS \"nazwaKategorii\", c.id, p.id, d.percent\n" +
                 "FROM product p\n" +

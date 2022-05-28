@@ -1,11 +1,7 @@
 package pl.britenet.campus.service;
 
-import pl.britenet.campus.builder.CartProductBuilder;
-import pl.britenet.campus.builder.CategoryBuilder;
-import pl.britenet.campus.builder.ProductBuilder;
-import pl.britenet.campus.obj.model.CartProduct;
-import pl.britenet.campus.obj.model.Category;
-import pl.britenet.campus.obj.model.Product;
+import pl.britenet.campus.builder.*;
+import pl.britenet.campus.obj.model.*;
 import pl.britenet.campus.service.database.DatabaseService;
 
 import java.util.*;
@@ -18,23 +14,38 @@ public class CartProductService {
         this.databaseService = databaseService;
     }
 
-    public List<CartProduct> retrieveAll() {
-        String sqlQuery = "SELECT * FROM cartproduct";
+    public List<CartProduct> retrieveCartproducts(int cpId) {
+        String sqlQuery = String.format("SELECT p.name AS productName, p.id AS productId, SUM(cp.quantity) AS quantity, c.id AS cartId, p.price AS price, SUM(cp.quantity) * price AS totalPrice\n" +
+                "FROM product p\n" +
+                "INNER JOIN cartproduct cp ON cp.productId = p.id\n" +
+                "INNER JOIN cart c ON c.id = cp.cartId WHERE c.id = %d\n" +
+                "GROUP BY p.name", cpId);
+
 
         try {
             return this.databaseService.performQuery(sqlQuery, resultSet -> {
 
                 List<CartProduct> cartProductList = new ArrayList<>();
                 while (resultSet.next()) {
-                    int id = resultSet.getInt("id");
-                    int cartId = resultSet.getInt("cartId");
-                    int productId = resultSet.getInt("productId ");
-                    int quantity = resultSet.getInt("quantity");
+                    int productId = resultSet.getInt("productId");
+                    String productName = resultSet.getString("productName");
+                    double productPrice = resultSet.getDouble("price");
 
-                    CartProduct cartProduct = new CartProductBuilder(id)
-                            .setCardId(cartId)
-                            .setProductId(productId)
-                            .setQuantity(quantity)
+                    int cpQuantity = resultSet.getInt("quantity");
+                    int cartId = resultSet.getInt("cartId");
+
+                    Cart cart = new CartBuilder(cartId)
+                            .getCard();
+
+                    Product product = new ProductBuilder(productId)
+                            .setPrice(productPrice)
+                            .setName(productName)
+                            .getProduct();
+
+                    CartProduct cartProduct = new CartProductBuilder(cpId)
+                            .setQuantity(cpQuantity)
+                            .setCart(cart)
+                            .setProduct(product)
                             .getCardProduct();
 
                     cartProductList.add(cartProduct);
@@ -50,6 +61,7 @@ public class CartProductService {
             return new ArrayList<>();
         }
     }
+
     public Optional<CartProduct> retrieve(int id) {
         String sqlQuery = String.format("SELECT * FROM cartproduct WHERE id =%d", id);
 

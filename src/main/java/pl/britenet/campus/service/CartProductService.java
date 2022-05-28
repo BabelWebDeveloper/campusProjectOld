@@ -15,10 +15,12 @@ public class CartProductService {
     }
 
     public List<CartProduct> retrieveCartproducts(int cpId) {
-        String sqlQuery = String.format("SELECT p.name AS productName, p.id AS productId, SUM(cp.quantity) AS quantity, c.id AS cartId, p.price AS price, SUM(cp.quantity) * price AS totalPrice\n" +
-                "FROM product p\n" +
-                "INNER JOIN cartproduct cp ON cp.productId = p.id\n" +
-                "INNER JOIN cart c ON c.id = cp.cartId WHERE c.id = %d\n" +
+        String sqlQuery = String.format("SELECT p.name AS \"name\", p.id AS productId, SUM(cp.quantity) AS quantity, " +
+                "c.id AS cartId, p.price AS price, " +
+                "SUM(cp.quantity) * price AS totalPrice FROM product p " +
+                "INNER JOIN cartproduct cp ON cp.productId = p.id " +
+                "INNER JOIN cart c ON c.id = cp.cartId " +
+                "WHERE c.id = %d " +
                 "GROUP BY p.name", cpId);
 
 
@@ -28,7 +30,7 @@ public class CartProductService {
                 List<CartProduct> cartProductList = new ArrayList<>();
                 while (resultSet.next()) {
                     int productId = resultSet.getInt("productId");
-                    String productName = resultSet.getString("productName");
+                    String name = resultSet.getString("name");
                     double productPrice = resultSet.getDouble("price");
 
                     int cpQuantity = resultSet.getInt("quantity");
@@ -39,7 +41,7 @@ public class CartProductService {
 
                     Product product = new ProductBuilder(productId)
                             .setPrice(productPrice)
-                            .setName(productName)
+                            .setName(name)
                             .getProduct();
 
                     CartProduct cartProduct = new CartProductBuilder(cpId)

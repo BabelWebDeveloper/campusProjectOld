@@ -298,35 +298,42 @@ h2 {
     }
         .shopbar__item--img {
             width: 100%;
+            height: 60%;
+            min-height: 250px;
             cursor: pointer;
+            background-size: cover;
+            background-position: center;
         }
-            .shopbar__item--img--img {
-                width: 100%;
-            }
-        .shopbar__item--name {
+
+        .shopbar__item--details{
+            height: 40%;
+            overflow: hidden;
+        }
+
+        .shopbar__item--details--name {
             font-size: 20px;
             padding: 5px;
         }
-        .shopbar__item--desc {
+        .shopbar__item--details--desc {
             font-size: 12px;
         }
-        .shopbar__item--cartPriceBar{
+        .shopbar__item--details--cartPriceBar{
             display: flex;
             flex-direction: row;
             justify-content: space-evenly;
             width: 100%;
         }
-            .shopbar__item--cartPriceBar-price{
+            .shopbar__item--details--cartPriceBar-price{
                 padding: 5px;
             }
-            .shopbar__item--cartPriceBar-button{
+            .shopbar__item--details--cartPriceBar-button{
                 border-style: hidden;
                 border: 1px solid transparent;
                 padding: 5px;
                 border-radius: 5px;
                 cursor: pointer;
             }
-            .shopbar__item--cartPriceBar-button:hover{
+            .shopbar__item--details--cartPriceBar-button:hover{
                 border-style:inherit;
                 border: 1px solid white;
             }

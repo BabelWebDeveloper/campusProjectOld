@@ -1,7 +1,7 @@
 package pl.britenet.campus.service;
 
-import pl.britenet.campus.builder.PaymentBuilder;
-import pl.britenet.campus.obj.model.Payment;
+import pl.britenet.campus.builder.*;
+import pl.britenet.campus.obj.model.*;
 import pl.britenet.campus.service.database.DatabaseService;
 
 import java.util.*;
@@ -14,27 +14,69 @@ public class PaymentService {
         this.databaseService = databaseService;
     }
 
-    public List<Payment> retrieveAll() {
-        String sqlQuery = "SELECT * FROM payment";
+    public List<Payment> retrieveOrders(int pId) {
+        String sqlQuery = "SELECT p.id, p.name AS productName, p.price AS price, cp.quantity AS quantity, py.date AS paymentDate, c.isOrdered AS status, ct.first_name AS firstName, cp.id, ct.last_name AS lastName, ct.email AS email, ct.address AS address, ct.id, c.id AS cartId, py.id\n" +
+                "FROM product p\n" +
+                "INNER JOIN cartproduct cp ON cp.productId = p.id\n" +
+                "INNER JOIN cart c ON c.id = cp.cartId\n" +
+                "INNER JOIN payment py ON py.cartId = c.id\n" +
+                "INNER JOIN customer ct ON c.customerId = ct.id";
+
 
         try {
             return this.databaseService.performQuery(sqlQuery, resultSet -> {
 
-                List<Payment> payments = new ArrayList<>();
+                List<Payment> paymentList = new ArrayList<>();
                 while (resultSet.next()) {
                     int id = resultSet.getInt("id");
                     int cartId = resultSet.getInt("cartId");
-                    String date = resultSet.getString("date");
+                    int productId = resultSet.getInt("p.id");
+                    int cartproductId = resultSet.getInt("cp.id");
+                    int customerId = resultSet.getInt("ct.id");
+
+                    double productPrice = resultSet.getDouble("price");
+                    int productQuantity = resultSet.getInt("quantity");
+                    String paymentDate = resultSet.getString("paymentDate");
+                    String productName = resultSet.getString("productName");
+                    boolean status = resultSet.getBoolean("status");
+
+                    String firstName = resultSet.getString("firstName");
+                    String lastName = resultSet.getString("lastName");
+                    String address = resultSet.getString("address");
+                    String email = resultSet.getString("email");
+
+                    Cart cart = new CartBuilder(cartId)
+                            .setOrdered(status)
+                            .getCard();
+
+                    Product product = new ProductBuilder(productId)
+                            .setPrice(productPrice)
+                            .setName(productName)
+                            .getProduct();
+
+                    CartProduct cartProduct = new CartProductBuilder(cartproductId)
+                            .setQuantity(productQuantity)
+                            .getCardProduct();
+
+                    Customer customer = new CustomerBuilder(customerId)
+                            .setFirstName(firstName)
+                            .setLastName(lastName)
+                            .setAddress(address)
+                            .setEmail(email)
+                            .getCustomer();
 
                     Payment payment = new PaymentBuilder(id)
-                            .setCartId(cartId)
-                            .setDate(date)
+                            .setDate(paymentDate)
+                            .setCart(cart)
+                            .setProduct(product)
+                            .setCartProduct(cartProduct)
+                            .setCustomer(customer)
                             .getPayment();
 
-                    payments.add(payment);
+                    paymentList.add(payment);
                 }
 
-                return payments;
+                return paymentList;
 
             });
         } catch (RuntimeException exception) {

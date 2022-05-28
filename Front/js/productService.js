@@ -19,18 +19,19 @@ retrieveProducts()
         products.forEach( product => {
             wrapper.innerHTML += `
             <article class="shopbar__item">
-            <div class="shopbar__item--img">
-              <img src="img/watch.jpg" class="shopbar__item--img--img" alt="">
-            </div>
+                <a href="indexProduct.html" class="shopbar__item--img" role="link" href="indexProduct.html" style="background-image: url(img/products/${product.id}.jpg);">
+                </a>
 
-            <p class="shopbar__item--name">${product.name}</p>
-            <p class="shopbar__item--desc">${product.description}</p>
-
-            <div class="shopbar__item--cartPriceBar">
-              <p class="shopbar__item--cartPriceBar-price">${product.price} zł</p>
-              <p role="button" class="shopbar__item--cartPriceBar-button">Dodaj do koszyka</p>
-            </div>
-          </article>
+                <div class="shopbar__item--details">
+                  <p class="shopbar__item--details--name">${product.name}</p>
+                  <p class="shopbar__item--details--desc">${product.description}</p>
+  
+                  <div class="shopbar__item--details--cartPriceBar">
+                    <p class="shopbar__item--details--cartPriceBar-price">${product.price} zł</p>
+                    <p role="button" class="shopbar__item--details--cartPriceBar-button">Dodaj do koszyka</p>
+                  </div>
+                </div>
+            </article>
             `
         } );
     } );
